@@ -1,6 +1,6 @@
 #ifndef VIEW_HPP
 #define VIEW_HPP
-#include <iostream>
+
 #include <memory>
 #include <SFML/Graphics.hpp>
 #include "util.hpp"
@@ -30,9 +30,10 @@ enum ViewMode {
 // 2. What to draw 
 class View {
 public:
-	View(std::shared_ptr<sf::RenderWindow> window_) 
+	View(std::shared_ptr<sf::RenderWindow> window_)
 		: window(window_), res(window_->getSize()) {
-		set_scale_factor();
+		// Scale factors should be a multiple of the 1280x720 resolution.
+		scale_factor = sf::Vector2f(res.x / 1280.0f, res.y / 720.0f);
 	}
 	~View() {}
 
@@ -63,10 +64,8 @@ protected:
 	virtual void processKeyrelease(const sf::Keyboard::Key &key) {}
 	virtual void processMouseClick(const int x, const int y) {}
 	virtual void processMouseMove(const int x, const int y) {}
-
-	// Misc convenience functions
-	void draw_rectangle(const sf::Vector2f &pos, const sf::Vector2f &size, const sf::Color &color);
-	void set_scale_factor();
+	virtual void processJoystickButton(const int jsid, const int button) {}
+	virtual void processJoystickMove(const int jsid, const float pos, const sf::Joystick::Axis axis) {}
 
 	std::shared_ptr<sf::RenderWindow> window;
 	sf::Vector2f scale_factor;
@@ -120,33 +119,20 @@ inline void View::processEvent(const sf::Event &event_) {
 		processMouseMove(e.x, e.y);
 		break;
 	}
+	case sf::Event::JoystickButtonPressed:
+	{
+		auto e = event_.joystickButton;
+		processJoystickButton(e.joystickId, e.button);
+		break;
+	}
+	case sf::Event::JoystickMoved:
+	{
+		auto e = event_.joystickMove;
+		processJoystickMove(e.joystickId, e.position, e.axis);
+		break;
+	}
 	// Put other input events here as need arises.
 	default: return;
-	}
-}
-
-inline void View::draw_rectangle(const sf::Vector2f &pos, const sf::Vector2f &size, const sf::Color &color) {
-	sf::RectangleShape shape;
-	shape.setFillColor(color);
-	shape.setPosition(pos);
-	shape.setSize(size - pos);
-	window->draw(shape);
-}
-
-// Scale factors should be a multiple of the
-// HD 720 resolution.
-inline void View::set_scale_factor() {
-	auto size = window->getSize();
-	switch (size.y) {
-	case 1440:
-		scale_factor = sf::Vector2f(2.0f, 2.0f); break;
-	case 1080:
-		scale_factor = sf::Vector2f(1.5f, 1.5f); break;
-	case 768:
-		scale_factor = sf::Vector2f(1.067f, 1.067f); break;
-	case 720:
-	default:
-		scale_factor = sf::Vector2f(1.0f, 1.0f); break;
 	}
 }
 

@@ -6,7 +6,9 @@ const ViewMode Game::view_loop() {
 }
 
 void Game::draw() {
-	std::cout << "In game state now!" << std::endl;
+	window->clear();
+	// Draw here
+	window->display();
 }
 
 void Game::processKeypress(const sf::Keyboard::Key & key) {

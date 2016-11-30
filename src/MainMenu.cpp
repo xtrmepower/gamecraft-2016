@@ -1,5 +1,7 @@
 #include "MainMenu.hpp"
 
+MainMenu::MainMenu(std::shared_ptr<sf::RenderWindow> window_) : View(window_) {}
+
 const ViewMode MainMenu::view_loop() {
 	View::standardStateLoop();
 	return (ViewMode)current_option;
@@ -16,10 +18,12 @@ void MainMenu::draw() {
 		sf::Vector2f curr(res.x / 2.0f, baseY + i * buttonGap);
 
 		if (current_option == i + 1) {
-			draw_rectangle(curr - highlgHalfDims, curr + highlgHalfDims, sf::Color::Yellow);
+			auto hl_opt = create_rect(curr - highlgHalfDims, curr + highlgHalfDims, sf::Color::Yellow);
+			window->draw(hl_opt);
 		}
 
-		draw_rectangle(curr - buttonHalfDims, curr + buttonHalfDims, sf::Color::Transparent);
+		auto opt_box = create_rect(curr - buttonHalfDims, curr + buttonHalfDims, sf::Color::Blue);
+		window->draw(opt_box);
 	}
 
 	window->display();

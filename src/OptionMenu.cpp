@@ -6,9 +6,7 @@ const ViewMode OptionMenu::view_loop() {
 }
 
 void OptionMenu::draw() {
-	std::cout << "OPTION MENU -  Current difficulty = " << difficulty << std::endl;
-
-	window->clear();
+	window->clear(sf::Color(64, 64, 127));
 	// Draw here
 	window->display();
 }

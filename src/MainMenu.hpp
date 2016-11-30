@@ -4,7 +4,7 @@
 
 class MainMenu : public View {
 public:
-	MainMenu(std::shared_ptr<sf::RenderWindow> window_) : View(window_) {}
+	MainMenu(std::shared_ptr<sf::RenderWindow> window_);
 	void draw() override;
 	const ViewMode view_loop() override;
 

@@ -1,4 +1,3 @@
-#include <iostream>
 #include <SFML/Graphics.hpp>
 
 #include "Game.hpp"
@@ -35,7 +34,7 @@ int main(int argc, char* argv[]) {
 			current_mode = game.view_loop();
 			break;
 		}
-		case ViewMode::LOAD_SAVE:
+		case ViewMode::LOAD_SAVE: // a.k.a. "Continue"
 		{
 			// current_mode = Load window -> view loop();
 			// Save data object . set(load window -> get data)
@@ -46,6 +45,5 @@ int main(int argc, char* argv[]) {
 		}
 	}
 
-	std::cout << "Exiting..." << std::endl;
 	return EXIT_SUCCESS;
 }
