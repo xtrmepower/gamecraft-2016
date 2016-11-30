@@ -1,14 +1,18 @@
 #include <SFML/Graphics.hpp>
 
+#include "AssetManager.hpp"
 #include "Game.hpp"
 #include "MainMenu.hpp"
 #include "OptionMenu.hpp"
+
+std::unique_ptr<AssetManager> ASSETMGR;
 
 int main(int argc, char* argv[]) {
 	int width = 1280, height = 720;
 	auto window = std::make_shared<sf::RenderWindow>(sf::VideoMode(width, height), "GAME");
 	ViewMode current_mode = ViewMode::MAIN_MENU;
 
+	ASSETMGR = std::make_unique<AssetManager>();
 	MainMenu main_menu(window);
 	OptionMenu option_menu(window);
 	Game game(window);

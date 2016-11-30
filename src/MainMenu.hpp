@@ -1,5 +1,6 @@
 #ifndef MAINMENU_HPP
 #define MAINMENU_HPP
+#include "AssetManager.hpp"
 #include "View.hpp"
 
 class MainMenu : public View {
@@ -20,6 +21,8 @@ private:
 	};
 	const int n_options = 4;
 	int current_option = Option::NEW_GAME;
+
+	sf::Text newgame_btn, continue_btn, options_btn, exit_btn;
 };
 
 #endif // MAINMENU_HPP
