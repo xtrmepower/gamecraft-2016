@@ -1,4 +1,5 @@
 #include "MainMenu.hpp"
+#include <iostream>
 
 extern std::unique_ptr<AssetManager> ASSETMGR;
 
@@ -13,7 +14,6 @@ MainMenu::MainMenu(std::shared_ptr<sf::RenderWindow> window_) : View(window_) {
 		return btn;
 	};
 
-	// Half-dimension of the button boxes
 	const float btn_ht = 50.0f * scale_factor.y;
 	// Button gap offset = 20 px + height of box
 	const float gap = (20.0f + btn_ht) * scale_factor.y;
@@ -74,7 +74,6 @@ void MainMenu::processKeypress(const sf::Keyboard::Key &key) {
 		exit_state = true;
 		break;
 	}
-
 	case sf::Keyboard::Up:
 	case sf::Keyboard::W:
 	{
@@ -83,7 +82,6 @@ void MainMenu::processKeypress(const sf::Keyboard::Key &key) {
 			current_option = 4;
 		break;
 	}
-
 	case sf::Keyboard::Down:
 	case sf::Keyboard::S:
 	{
@@ -92,9 +90,32 @@ void MainMenu::processKeypress(const sf::Keyboard::Key &key) {
 			current_option = 1;
 		break;
 	}
-	default:
+	default: break;
+	}
+}
+
+void MainMenu::processJoystickButton(const int jsid, const int button) {
+	switch (button) {
+	case 7: // Start
+	case 0: exit_state = true; break;
+	default: break;
+	}
+}
+
+void MainMenu::processJoystickMove(const sf::Event::JoystickMoveEvent &e) {
+	switch (e.axis) {
+	case sf::Joystick::Axis::Y:
 	{
+		if (e.position > 99.0f)
+			++current_option;
+		else if (e.position < -99.0f)
+			--current_option;
+		if (current_option > 4)
+			current_option = 1;
+		if (current_option < 1)
+			current_option = 4;
 		break;
 	}
+	default: break;
 	}
 }

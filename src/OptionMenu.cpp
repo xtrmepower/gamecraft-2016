@@ -17,6 +17,9 @@ OptionMenu::OptionMenu(std::shared_ptr<sf::RenderWindow> window_) : View(window_
 		return btn;
 	};
 
+	const float optn_ht = 40.0f * scale_factor.y;
+	// Option gap offset
+	const float gap = (15.0f + optn_ht) * scale_factor.y;
 	// Starting vertical position
 	const float baseY = (res.y / 2.0f);
 	sf::Vector2f curr(res.x / 2.0f, baseY);
@@ -45,25 +48,42 @@ void OptionMenu::draw() {
 
 void OptionMenu::processKeypress(const sf::Keyboard::Key &key) {
 	switch (key) {
-	case sf::Keyboard::Left:
-	case sf::Keyboard::A:
-	{
-		--difficulty;
-		if (difficulty < 1) difficulty = 4;
-		break;
-	}
-	case sf::Keyboard::Right:
-	case sf::Keyboard::D:
-	{
-		++difficulty;
-		if (difficulty > 4) difficulty = 1;
-		break;
-	}
 	case sf::Keyboard::Space:
 	case sf::Keyboard::Escape:
 	{
 		exit_state = true;
 		break;
 	}
+	case sf::Keyboard::Up:
+	case sf::Keyboard::W:
+	{
+		--current_option;
+		if (current_option < 0)
+			current_option = 1;
+		break;
+	}
+	case sf::Keyboard::Down:
+	case sf::Keyboard::S:
+	{
+		++current_option;
+		if (current_option > 1)
+			current_option = 0;
+		break;
+	}
+	case sf::Keyboard::Left:
+	case sf::Keyboard::A:
+	{
+		--difficulty;
+		if (difficulty < 0) difficulty = 3;
+		break;
+	}
+	case sf::Keyboard::Right:
+	case sf::Keyboard::D:
+	{
+		++difficulty;
+		if (difficulty > 3) difficulty = 0;
+		break;
+	}
+	default: break;
 	}
 }

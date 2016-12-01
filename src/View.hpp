@@ -66,7 +66,7 @@ protected:
 	virtual void processMouseClick(const int x, const int y) {}
 	virtual void processMouseMove(const int x, const int y) {}
 	virtual void processJoystickButton(const int jsid, const int button) {}
-	virtual void processJoystickMove(const int jsid, const float pos, const sf::Joystick::Axis axis) {}
+	virtual void processJoystickMove(const sf::Event::JoystickMoveEvent &e) {}
 
 	std::shared_ptr<sf::RenderWindow> window;
 	sf::Vector2f scale_factor;
@@ -129,7 +129,7 @@ inline void View::processEvent(const sf::Event &event_) {
 	case sf::Event::JoystickMoved:
 	{
 		auto e = event_.joystickMove;
-		processJoystickMove(e.joystickId, e.position, e.axis);
+		processJoystickMove(e);
 		break;
 	}
 	// Put other input events here as need arises.
