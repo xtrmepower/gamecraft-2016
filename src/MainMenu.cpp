@@ -4,6 +4,7 @@
 extern std::unique_ptr<AssetManager> ASSETMGR;
 
 MainMenu::MainMenu(std::shared_ptr<sf::RenderWindow> window_) : View(window_) {
+	current_option = Option::NEW_GAME;
 
 	// Make buttons
 	auto apply_button = [] (const char* txt, const sf::Vector2f &pos) -> sf::Text {

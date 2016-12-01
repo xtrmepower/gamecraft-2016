@@ -21,7 +21,7 @@ private:
 		EXIT = ViewMode::EXIT
 	};
 	const int n_options = 4;
-	int current_option = Option::NEW_GAME;
+	int current_option;
 
 	sf::Text newgame_btn, continue_btn, options_btn, exit_btn;
 };
