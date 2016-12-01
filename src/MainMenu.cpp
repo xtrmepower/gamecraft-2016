@@ -13,8 +13,11 @@ MainMenu::MainMenu(std::shared_ptr<sf::RenderWindow> window_) : View(window_) {
 		return btn;
 	};
 
+	// Half-dimension of the buttons
 	sf::Vector2f buttonHalfDims = sf::Vector2f(200.0f, 25.0f) * scale_factor;
+	// Button gap position
 	const float buttonGap = (20.0f + 2.0f * buttonHalfDims.y) * scale_factor.y;
+	// Starting vertical position
 	const float baseY = (res.y / 2.0f) + (2.0f * buttonHalfDims.y);
 	sf::Vector2f curr(res.x / 2.0f, baseY);
 	newgame_btn = apply_button("New Game", curr);

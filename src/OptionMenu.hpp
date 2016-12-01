@@ -4,10 +4,7 @@
 
 class OptionMenu : public View {
 public:
-	OptionMenu(std::shared_ptr<sf::RenderWindow> window_) : View(window_) {
-		difficulty = 1;
-		//loadSettings();
-	}
+	OptionMenu(std::shared_ptr<sf::RenderWindow> window_);
 
 	void draw() override;
 	const ViewMode view_loop() override;
@@ -16,6 +13,7 @@ private:
 	void processKeypress(const sf::Keyboard::Key &key) override;
 
 	unsigned int difficulty;
+	sf::Text difficulty_disp;
 };
 
 #endif // OPTIONMENU_HPP

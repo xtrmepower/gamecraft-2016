@@ -1,6 +1,5 @@
 #ifndef MAINMENU_HPP
 #define MAINMENU_HPP
-#include "AssetManager.hpp"
 #include "View.hpp"
 
 class MainMenu : public View {
