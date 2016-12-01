@@ -13,19 +13,18 @@ MainMenu::MainMenu(std::shared_ptr<sf::RenderWindow> window_) : View(window_) {
 		return btn;
 	};
 
-	// Half-dimension of the buttons
-	sf::Vector2f buttonHalfDims = sf::Vector2f(200.0f, 25.0f) * scale_factor;
-	// Button gap position
-	const float buttonGap = (20.0f + 2.0f * buttonHalfDims.y) * scale_factor.y;
-	// Starting vertical position
-	const float baseY = (res.y / 2.0f) + (2.0f * buttonHalfDims.y);
-	sf::Vector2f curr(res.x / 2.0f, baseY);
+	// Half-dimension of the button boxes
+	const float btn_ht = 50.0f * scale_factor.y;
+	// Button gap offset = 20 px + height of box
+	const float gap = (20.0f + btn_ht) * scale_factor.y;
+	// Starting vertical position = bottom half of screen + one box height
+	sf::Vector2f curr(res.x / 2.0f, (res.y / 2.0f) + btn_ht);
 	newgame_btn = apply_button("New Game", curr);
-	curr.y += buttonGap;
+	curr.y += gap;
 	continue_btn = apply_button("Continue", curr);
-	curr.y += buttonGap;
+	curr.y += gap;
 	options_btn = apply_button("Options", curr);
-	curr.y += buttonGap;
+	curr.y += gap;
 	exit_btn = apply_button("Exit", curr);
 }
 
@@ -37,17 +36,27 @@ const ViewMode MainMenu::view_loop() {
 void MainMenu::draw() {
 	window->clear(sf::Color(64, 64, 127));
 
-	// Buttons. Draw order is top to bottom.
-	sf::Vector2f highlgHalfDims = sf::Vector2f(210.0f, 25.0f) * scale_factor;
-	sf::Vector2f buttonHalfDims = sf::Vector2f(200.0f, 25.0f) * scale_factor;
-	const float buttonGap = (20.0f + 2.0f * buttonHalfDims.y) * scale_factor.y;
+	auto highlight_option = [] (sf::Text &btn) -> void {
+		btn.setOutlineColor(sf::Color::Yellow);
+		btn.setOutlineThickness(2.0f);
+	};
 
-	const float baseY = (res.y / 2.0f) + (2.0f * buttonHalfDims.y);
+	auto unhighlight_option = [] (sf::Text &btn) -> void {
+		btn.setOutlineColor(sf::Color::Black);
+		btn.setOutlineThickness(0.0f);
+	};
 
-	// Highlighted option
-	sf::Vector2f curr(res.x / 2.0f, baseY + (current_option - 1) * buttonGap);
-	auto highlg = create_rect(curr - highlgHalfDims, curr + highlgHalfDims, sf::Color::Yellow);
-	window->draw(highlg);
+	unhighlight_option(newgame_btn);
+	unhighlight_option(continue_btn);
+	unhighlight_option(options_btn);
+	unhighlight_option(exit_btn);
+
+	switch (current_option) {
+	case Option::NEW_GAME: highlight_option(newgame_btn);break;
+	case Option::CONTINUE: highlight_option(continue_btn); break;
+	case Option::OPTIONS: highlight_option(options_btn); break;
+	case Option::EXIT: highlight_option(exit_btn); break;
+	}
 
 	window->draw(newgame_btn);
 	window->draw(continue_btn);
