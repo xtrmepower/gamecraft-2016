@@ -16,4 +16,5 @@ private:
     sf::Texture texture;
     float range;
     float damage;
+    std::map<int, float> damage_modifiers;
 };
