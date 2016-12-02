@@ -1,0 +1,18 @@
+#include <string>
+#include <SFML/Graphics.hpp>
+
+class Weapon {
+public:
+    Weapon(int id);
+    std::string getName();
+    sf::Texture getTexture();
+    float getRange();
+    float getDamage();
+    float calculateBossDamage(float distance);
+    float calculateWinningChance(int enemy_type);
+private:
+    std::string name;
+    sf::Texture texture;
+    float range;
+    float damage;
+};

@@ -17,6 +17,10 @@ public:
 
 	sf::Font main_menu_font;
 	sf::Font test_font;
+    
+    sf::Texture weapon_texture_1;
+    sf::Texture weapon_texture_2;
+    sf::Texture weapon_texture_3;
 };
 
 #endif // ASSET_MANAGER_HPP
