@@ -16,6 +16,9 @@ public:
 	//void continue_from();
 private:
 	void processKeypress(const sf::Keyboard::Key &key) override;
+	void processJoystickButton(const int jsid, const int button) override;
+	void processJoystickMove(const sf::Event::JoystickMoveEvent &e) override;
+
 	//Player p
 	//PlayerPosition x, y
 };

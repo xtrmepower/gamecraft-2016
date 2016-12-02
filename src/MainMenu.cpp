@@ -105,6 +105,7 @@ void MainMenu::processJoystickButton(const int jsid, const int button) {
 
 void MainMenu::processJoystickMove(const sf::Event::JoystickMoveEvent &e) {
 	switch (e.axis) {
+	case sf::Joystick::Axis::PovY:
 	case sf::Joystick::Axis::Y:
 	{
 		if (e.position > 99.0f)

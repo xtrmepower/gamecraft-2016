@@ -13,12 +13,18 @@ void Game::draw() {
 
 void Game::processKeypress(const sf::Keyboard::Key & key) {
 	switch (key) {
-	case sf::Keyboard::Escape:
-	{
-		exit_state = true;
-		break;
+	case sf::Keyboard::Escape: exit_state = true; break;
+	default: // Do nothing
 	}
-	default: {}
-		// Do nothing
+}
+
+void Game::processJoystickButton(const int jsid, const int button) {
+	switch (button) {
+	case 1: exit_state = true; break;
+	default: break;
 	}
+}
+
+void Game::processJoystickMove(const sf::Event::JoystickMoveEvent & e) {
+	
 }

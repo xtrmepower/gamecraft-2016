@@ -93,15 +93,43 @@ void OptionMenu::processKeypress(const sf::Keyboard::Key &key) {
 		break;
 	}
 	case sf::Keyboard::Left:
-	case sf::Keyboard::A:
+	case sf::Keyboard::A: processOptionChange(true); break;
+	case sf::Keyboard::Right:
+	case sf::Keyboard::D: processOptionChange(false); break;
+	default: break;
+	}
+}
+
+void OptionMenu::processJoystickButton(const int jsid, const int button) {
+	switch (button) {
+	case 7:
+	case 1: exit_state = true; break;
+	default: break;
+	}
+}
+
+void OptionMenu::processJoystickMove(const sf::Event::JoystickMoveEvent &e) {
+	switch (e.axis) {
+	case sf::Joystick::Axis::PovY:
+	case sf::Joystick::Axis::Y:
 	{
-		processOptionChange(true);
+		if (e.position > 99.0f)
+			++current_option;
+		else if (e.position < -99.0f)
+			--current_option;
+		if (current_option > 1)
+			current_option = 0;
+		if (current_option < 0)
+			current_option = 1;
 		break;
 	}
-	case sf::Keyboard::Right:
-	case sf::Keyboard::D:
+	case sf::Joystick::Axis::PovX:
+	case sf::Joystick::Axis::X:
 	{
-		processOptionChange(false);
+		if (e.position > 99.0f)
+			processOptionChange(false);
+		else if (e.position < -99.0f)
+			processOptionChange(true);
 		break;
 	}
 	default: break;

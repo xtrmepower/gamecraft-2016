@@ -13,6 +13,8 @@ public:
 
 private:
 	void processKeypress(const sf::Keyboard::Key &key) override;
+	void processJoystickButton(const int jsid, const int button) override;
+	void processJoystickMove(const sf::Event::JoystickMoveEvent &e) override;
 
 	void processOptionChange(const bool left);
 
