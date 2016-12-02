@@ -5,10 +5,11 @@
 class MissionSelect : public View {
 public:
 	MissionSelect(std::shared_ptr<sf::RenderWindow> window_);
-	void draw() override;
+
 	const ViewMode view_loop() override;
 
 private:
+	void draw() override;
 	void update() override;
 	void processKeypress(const sf::Keyboard::Key &key) override;
 	void processJoystickButton(const int jsid, const int button) override;

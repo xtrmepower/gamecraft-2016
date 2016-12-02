@@ -28,7 +28,7 @@ inline sf::RectangleShape create_rect(const sf::Vector2f &pos, const sf::Vector2
 }
 
 // 1.0 chance represents 100% chance
-bool getChanceOutcome(float chance) {
+inline bool getChanceOutcome(float chance) {
     return chance >= (rand() % 101) / 100.0f;
 }
 
