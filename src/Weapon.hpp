@@ -11,6 +11,7 @@ public:
     float calculateBossDamage(float distance);
     float calculateWinningChance(int enemy_type);
 private:
+    int id;
     std::string name;
     sf::Texture texture;
     float range;
