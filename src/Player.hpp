@@ -12,12 +12,17 @@ public:
 	void update();
 	void draw(std::shared_ptr<sf::RenderWindow> window);
 
+	void startTimeDilation();
+	void endTimeDilation();
+
 	void reset();
 
 private:
 	float speed;
 	float time_scale;
 	sf::CircleShape my_sprite;
+
+	bool isTimeDilated;
 };
 
 #endif
