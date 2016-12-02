@@ -8,15 +8,15 @@
 
 class Enemy : public GameObject {
 public:
-	Enemy(int id);
-	std::string getName();
-	sf::Texture getTexture();
-	std::vector<int> getEnemyType();
+    Enemy(int id, bool is_boss=false);
+    std::string getName();
+    sf::Texture getTexture();
+    std::vector<int> getEnemyType();
 
 	void update();
 	void draw(std::shared_ptr<sf::RenderWindow> window);
 	void reset();
-
+    bool isBoss();
 private:
 	int id;
 	std::string name;
@@ -25,6 +25,7 @@ private:
 
 	// placeholder first
 	sf::RectangleShape my_sprite;
+    bool is_boss;
 };
 
 #endif // ENEMY_HPP

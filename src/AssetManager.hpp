@@ -25,6 +25,10 @@ public:
     sf::Texture enemy_texture_0;
     sf::Texture enemy_texture_1;
     sf::Texture enemy_texture_2;
+
+    sf::Texture boss_texture_0;
+    sf::Texture boss_texture_1;
+    sf::Texture boss_texture_2;
 };
 
 #endif // ASSET_MANAGER_HPP
