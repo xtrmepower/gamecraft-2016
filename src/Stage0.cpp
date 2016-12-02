@@ -27,9 +27,7 @@ void Stage0::update()
 {
 	p.update();
 
-	for (auto e : enemy_list) {
-		e->update();
-	}
+	enemyUpdate();
 }
 
 void Stage0::reset()
@@ -81,4 +79,49 @@ void Stage0::onExit()
 	reset();
 
 	deinitEnemyList();
+}
+
+void Stage0::enemyUpdate()
+{
+	// check if player is near the next enemy
+
+	// if yes, enter combat
+
+		// if player has moved past enemy
+
+		// remove enemy
+
+	const float combat_range = 50.0f;
+	bool toEnterCombat = false;
+	for (auto e : enemy_list) {
+		if (p.getPos().x > e->getPos().x) {
+			// remove enemy
+			break;
+		} else if (calcDistance(e->getPos(), p.getPos()) < combat_range) {
+			toEnterCombat = true;
+		}
+	}
+
+	toEnterCombat ? enterCombat() : endCombat();
+}
+
+void Stage0::enterCombat()
+{
+	p.startTimeDilation();
+}
+
+void Stage0::endCombat()
+{
+	p.endTimeDilation();
+}
+
+float Stage0::calcDistance(sf::Vector2f pos1, sf::Vector2f pos2)
+{
+	float dx = pos2.x - pos1.x;
+	dx *= dx;
+
+	float dy = pos2.y - pos1.y;
+	dy *= dy;
+
+	return sqrt(dx + dy);
 }

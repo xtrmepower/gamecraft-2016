@@ -26,8 +26,14 @@ private:
 
 	std::vector<Enemy*> enemy_list;
 
+	void enemyUpdate();
+	void enterCombat();
+	void endCombat();
+
 	void initEnemyList();
 	void deinitEnemyList();
+
+	float calcDistance(sf::Vector2f pos1, sf::Vector2f pos2);
 };
 
 #endif
