@@ -6,6 +6,7 @@
 #include "MainMenu.hpp"
 #include "MissionSelect.hpp"
 #include "OptionMenu.hpp"
+#include "ScoreScreen.hpp"
 #include "SetupScreen.hpp"
 
 std::unique_ptr<AssetManager> ASSETMGR;
@@ -52,6 +53,12 @@ int main(int argc, char* argv[]) {
 		{
 			SetupScreen sus(window);
 			current_mode = sus.view_loop();
+			break;
+		}
+		case ViewMode::SCORE:
+		{
+			Scores s(window);
+			current_mode = s.view_loop();
 			break;
 		}
 		case ViewMode::LOAD_SAVE: // a.k.a. "Continue"
