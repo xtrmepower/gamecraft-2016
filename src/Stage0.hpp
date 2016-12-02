@@ -1,21 +1,24 @@
 #ifndef STAGE0_HPP
 #define STAGE0_HPP
 
-#include "View.hpp"
 #include "Player.hpp"
+#include <iostream> 
 
-class Stage0 : public View {
+class Stage0 {
 public:
 	Stage0(std::shared_ptr<sf::RenderWindow> window_);
 
-	void draw() override;
-	const ViewMode view_loop() override;
-
-	void update() override;
+	void draw();
+	void update();
 
 	void reset();
 
+private:
 	Player p;
+
+	sf::View my_view;
+	sf::Vector2f old_view_center;
+	std::shared_ptr<sf::RenderWindow> window;
 };
 
 #endif

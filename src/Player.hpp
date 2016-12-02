@@ -14,9 +14,12 @@ public:
 
 	void reset();
 
+	sf::Vector2f getPos() const;
+
 private:
 	float speed;
-	sf::CircleShape mySprite;
+	float time_scale;
+	sf::CircleShape my_sprite;
 };
 
 #endif

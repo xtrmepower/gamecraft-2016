@@ -9,7 +9,7 @@
 // The game view
 class Game : public View {
 public:
-	Game(std::shared_ptr<sf::RenderWindow> window_) : View(window_), stage0(window_) {}
+	Game(std::shared_ptr<sf::RenderWindow> window_);
 
 	void draw() override;
 	const ViewMode view_loop() override;

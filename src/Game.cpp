@@ -1,7 +1,13 @@
 #include "Game.hpp"
 
+Game::Game(std::shared_ptr<sf::RenderWindow> window_)
+	: View(window_), stage0(window_)
+{
+}
+
 const ViewMode Game::view_loop() {
 	View::standardStateLoop();
+	stage0.reset();
 	return ViewMode::MAIN_MENU;
 }
 
