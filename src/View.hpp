@@ -15,13 +15,14 @@ enum ViewMode {
 	MAIN_MENU = 0,
 
 	// Enums used by Main Menu
-	IN_GAME = 1,
+	MISSION_SELECT = 1,
 	LOAD_SAVE = 2,
 	OPTION_MENU = 3,
 	EXIT = 4,
 
 	// Enums used while in playing state
-	MISSION_SELECT = 9,
+	SETUP = 8,
+	IN_GAME = 9,
 	INGAME_MENU = 10,
 	SCORE = 11
 };

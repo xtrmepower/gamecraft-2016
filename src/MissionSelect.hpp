@@ -18,6 +18,7 @@ private:
 	std::vector<sf::RectangleShape> mission_btns;
 	int curr_mission_choice;
 	int avail_missions;
+	ViewMode to_return;
 };
 
 #endif // MISSIONSELECT_HPP

@@ -45,7 +45,7 @@ void MissionSelect::draw() {
 
 const ViewMode MissionSelect::view_loop() {
 	View::standardStateLoop();
-	return ViewMode::MAIN_MENU;
+	return to_return;
 }
 
 void MissionSelect::update() {
@@ -60,8 +60,19 @@ void MissionSelect::processKeypress(const sf::Keyboard::Key &key) {
 	mission_btns[curr_mission_choice].setOutlineThickness(0.0f);
 
 	switch (key) {
+	case sf::Keyboard::Space:
 	case sf::Keyboard::Return:
-	case sf::Keyboard::Escape: exit_state = true; break;
+	{
+		to_return = ViewMode::SETUP;
+		exit_state = true;
+		break;
+	}
+	case sf::Keyboard::Escape:
+	{
+		to_return = ViewMode::MAIN_MENU;
+		exit_state = true;
+		break;
+	}
 	case sf::Keyboard::Up:
 	case sf::Keyboard::W:
 	{

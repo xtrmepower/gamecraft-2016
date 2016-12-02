@@ -6,6 +6,7 @@
 #include "MainMenu.hpp"
 #include "MissionSelect.hpp"
 #include "OptionMenu.hpp"
+#include "SetupScreen.hpp"
 
 std::unique_ptr<AssetManager> ASSETMGR;
 std::unique_ptr<GameData> GAMEDATA;
@@ -25,7 +26,6 @@ int main(int argc, char* argv[]) {
 
 	// Main game loop
 	while (window->isOpen() && current_mode != ViewMode::EXIT) {
-		std::cout << GAMEDATA->selected_level << std::endl;
 		switch (current_mode) {
 		case ViewMode::MAIN_MENU:
 		{
@@ -46,6 +46,12 @@ int main(int argc, char* argv[]) {
 		{
 			MissionSelect ms(window);
 			current_mode = ms.view_loop();
+			break;
+		}
+		case ViewMode::SETUP:
+		{
+			SetupScreen sus(window);
+			current_mode = sus.view_loop();
 			break;
 		}
 		case ViewMode::LOAD_SAVE: // a.k.a. "Continue"

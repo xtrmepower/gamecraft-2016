@@ -16,7 +16,7 @@ private:
 
 	// Must strictly be a subset of the available views, but can have different names
 	enum Option {
-		NEW_GAME = ViewMode::IN_GAME,
+		NEW_GAME = ViewMode::MISSION_SELECT,
 		CONTINUE = ViewMode::LOAD_SAVE,
 		OPTIONS = ViewMode::OPTION_MENU,
 		EXIT = ViewMode::EXIT
