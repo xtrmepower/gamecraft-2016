@@ -8,24 +8,46 @@ extern std::unique_ptr<AssetManager> ASSETMGR;
 
 Weapon::Weapon(int id) {
     id = id;
+
+    float none = 0.0f;
+    float low = 0.25f;
+    float middle = 0.5f;
+    float high = 0.75f;
+    float definite = 1.0f;
+
     switch (id) {
     case 0:
         name = "Bow";
         texture = ASSETMGR->weapon_texture_0;
         range = 100.0f;
         damage = 100.0f;
+        
+        damage_modifiers[0] = middle;
+        damage_modifiers[1] = high;
+        damage_modifiers[2] = middle;
+
         break;
     case 1:
         name = "Musket";
         texture = ASSETMGR->weapon_texture_1;
         range = 50.0f;
         damage = 200.0f;
+
+        damage_modifiers[0] = definite;
+        damage_modifiers[1] = high;
+        damage_modifiers[2] = middle;
+
         break;
     case 2:
         name = "Swrod";
         texture = ASSETMGR->weapon_texture_2;
         range = 0.0f;
         damage = 100.0f;
+
+        damage_modifiers[0] = none;
+        damage_modifiers[1] = high;
+        damage_modifiers[2] = middle;
+
         break;
     }
 }
@@ -53,69 +75,14 @@ float Weapon::calculateBossDamage(float distance) {
 float Weapon::calculateWinningChance(std::vector<int> enemy_type) {
     float winning_chance = 0.0f;
     
-    float none = 0.0f;
-    float low = 0.25f;
-    float middle = 0.5f;
-    float high = 0.75f;
-    float definite = 1.0f;
-
-    switch (id) {
-    case 0:  // Bow
-        for (int i = 0; i < enemy_type.size(); i++) {
-            switch (enemy_type[i]) {
-            case 0:
-                winning_chance += middle;
-                break;
-            case 1:
-                winning_chance += high;
-                break;
-            case 2:
-                winning_chance += middle;
-                break;
-            default:
-                assert(false && "Reason: Unhandled enemy type");
-            }
+    for (int i = 0; i < enemy_type.size(); i++) {
+        if (damage_modifiers.count(i) == 0) {
+            assert(false && "Reason: Unhandled enemy type");
+        } else {
+            winning_chance += damage_modifiers[i];
         }
-        winning_chance /= (float) enemy_type.size();
-        break;
-    case 1:  // Musket
-        for (int i = 0; i < enemy_type.size(); i++) {
-            switch (enemy_type[i]) {
-            case 0:
-                winning_chance += definite;
-                break;
-            case 1:
-                winning_chance += high;
-                break;
-            case 2:
-                winning_chance += middle;
-                break;
-            default:
-                assert(false && "Reason: Unhandled enemy type");
-            }
-        }
-        winning_chance /= (float) enemy_type.size();
-        break;
-    case 2:  // Sword
-        for (int i = 0; i < enemy_type.size(); i++) {
-            switch (enemy_type[i]) {
-            case 0:
-                winning_chance += none;
-                break;
-            case 1:
-                winning_chance += high;
-                break;
-            case 2:
-                winning_chance += middle;
-                break;
-            default:
-                assert(false && "Reason: Unhandled enemy type");
-            }
-        }
-        winning_chance /= (float) enemy_type.size();
-        break;
-    default:
-        assert(false && "Reason: Unhandled weapon type");
     }
+    winning_chance /= (float)enemy_type.size();
+
     return winning_chance;
 }
