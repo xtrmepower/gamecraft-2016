@@ -1,6 +1,8 @@
 #ifndef SETUPSCREEN_HPP
 #define SETUPSCREEN_HPP
+#include "Enemy.hpp"
 #include "View.hpp"
+#include "Weapon.hpp"
 
 class SetupScreen : public View {
 public:
@@ -13,10 +15,13 @@ private:
 	void update() override;
 	void processKeypress(const sf::Keyboard::Key &key) override;
 
+
+
 	sf::RectangleShape top_section, middle_section_left, 
 		middle_section_right, bottom_section;
-
 	ViewMode to_return;
+	std::vector<Enemy> enemies;
+	std::vector<Weapon> selected_weapons;
 };
 
 #endif // SETUPSCREEN_HPP

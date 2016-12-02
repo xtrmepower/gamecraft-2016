@@ -24,7 +24,6 @@ SetupScreen::SetupScreen(std::shared_ptr<sf::RenderWindow> window_) : View(windo
 	bottom_section = sf::RectangleShape(sf::Vector2f(res.x, res.y * 0.2f));
 	bottom_section.setFillColor(sf::Color::Black);
 	bottom_section.setPosition(curr);
-
 }
 
 const ViewMode SetupScreen::view_loop() {
