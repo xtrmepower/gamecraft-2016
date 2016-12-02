@@ -41,8 +41,16 @@ void Stage0::reset()
 void Stage0::initEnemyList()
 {
 	Enemy* temp;
+	temp = new Enemy(0);
+	temp->setPos(sf::Vector2f(100.0f, 0.0f));
+	enemy_list.push_back(temp);
+
 	temp = new Enemy(1);
-	temp->setPos(sf::Vector2f(1000.0f, 100.0f));
+	temp->setPos(sf::Vector2f(150.0f, 0.0f));
+	enemy_list.push_back(temp);
+
+	temp = new Enemy(2);
+	temp->setPos(sf::Vector2f(200.0f, 0.0f));
 	enemy_list.push_back(temp);
 }
 

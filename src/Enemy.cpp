@@ -12,7 +12,7 @@ Enemy::Enemy(int id, bool is_boss) {
         switch (id) {
         case 0:
             name = "Very Evil Boss";
-            texture = ASSETMGR->boss_texture_0;
+            // texture = ASSETMGR->boss_texture_0;
             enemy_type = { 0, 1 };
             break;
         default:
@@ -22,17 +22,17 @@ Enemy::Enemy(int id, bool is_boss) {
         switch (id) {
         case 0:
             name = "Harambe";
-            texture = ASSETMGR->enemy_texture_0;
+            // texture = ASSETMGR->enemy_texture_0;
             enemy_type = { 0 };
             break;
         case 1:
             name = "Doge";
-            texture = ASSETMGR->enemy_texture_1;
+            // texture = ASSETMGR->enemy_texture_1;
             enemy_type = { 1 };
             break;
         case 2:
             name = "Nicolas Cage";
-            texture = ASSETMGR->enemy_texture_2;
+            // texture = ASSETMGR->enemy_texture_2;
             enemy_type = { 2 };
             break;
         default:

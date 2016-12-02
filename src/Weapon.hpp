@@ -13,6 +13,8 @@ public:
 	float getDamage();
 	float calculateBossDamage(std::vector<int> enemy_type, float distance);
 	float calculateWinningChance(std::vector<int> enemy_type);
+    void useWeapon();
+    bool isUsable();
 
 private:
 	int id;
@@ -23,6 +25,7 @@ private:
 	float weapon_scale;
 	float stamina_scale;
 	std::map<int, float> damage_modifiers;
+    int durability;
 };
 
 #endif // WEAPON_HPP

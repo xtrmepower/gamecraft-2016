@@ -16,6 +16,7 @@ public:
 	void endTimeDilation();
 
 	void reset();
+    float getStamina();
 
 private:
 	float speed;
@@ -23,6 +24,7 @@ private:
 	sf::CircleShape my_sprite;
 
 	bool isTimeDilated;
+    float stamina;
 };
 
 #endif
