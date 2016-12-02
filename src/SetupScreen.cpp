@@ -3,6 +3,7 @@
 extern std::unique_ptr<GameData> GAMEDATA;
 
 SetupScreen::SetupScreen(std::shared_ptr<sf::RenderWindow> window_) : View(window_) {
+	current_hlgted_wpn = 0;
 
 	sf::Vector2f curr(0.0f, 0.0f);
 	// Top section. Size: screen width x 0.2 * screen height
@@ -51,7 +52,7 @@ void SetupScreen::draw() {
 	}
 
 	pos = sf::Vector2f(10.0f, res.y * 0.8f + 10.0f);
-	for (auto w : selected_weapons) {
+	for (auto w : selected_wpns) {
 		// icon = w.get_icon();
 		// icon.setPosition(pos);
 		// window->draw(icon);
@@ -63,23 +64,52 @@ void SetupScreen::draw() {
 }
 
 void SetupScreen::update() {
-
+	
 }
 
 void SetupScreen::processKeypress(const sf::Keyboard::Key & key) {
 	switch (key) {
 	case sf::Keyboard::Return:
 	{
+		// Move weapon #$(current_hlted_wpn) from choice box to selected_weapons
+		break;
+	}
+	case sf::Keyboard::Escape: // Return to mission select
+	{
 		to_return = ViewMode::MISSION_SELECT;
+		GAMEDATA->clearHeldWeapons();
 		exit_state = true;
 		break;
 	}
-	case sf::Keyboard::Space:
+	case sf::Keyboard::Space:// GAME START!
 	{
 		to_return = ViewMode::IN_GAME;
+		GAMEDATA->setHeldWeapons(selected_wpns);
 		exit_state = true;
+		break;
+	}
+	case sf::Keyboard::Up:
+	case sf::Keyboard::Left:
+	case sf::Keyboard::A:
+	case sf::Keyboard::W:
+	{
+		--current_hlgted_wpn;
+		break;
+	}
+	case sf::Keyboard::Down:
+	case sf::Keyboard::Right:
+	case sf::Keyboard::D:
+	case sf::Keyboard::S:
+	{
+		++current_hlgted_wpn;
 		break;
 	}
 	default: break;
 	}
+
+	if (current_hlgted_wpn >= GAMEDATA->getWeaponList().size())
+		current_hlgted_wpn = 0;
+	if (current_hlgted_wpn < 0)
+		current_hlgted_wpn = (int)GAMEDATA->getWeaponList().size() - 1;
 }
+

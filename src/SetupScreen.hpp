@@ -16,12 +16,12 @@ private:
 	void processKeypress(const sf::Keyboard::Key &key) override;
 
 
-
 	sf::RectangleShape top_section, middle_section_left, 
 		middle_section_right, bottom_section;
 	ViewMode to_return;
 	std::vector<Enemy> enemies;
-	std::vector<Weapon> selected_weapons;
+	std::vector<Weapon> selected_wpns;
+	int current_hlgted_wpn;
 };
 
 #endif // SETUPSCREEN_HPP
