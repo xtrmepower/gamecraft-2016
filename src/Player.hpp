@@ -13,11 +13,14 @@ public:
 	void draw(std::shared_ptr<sf::RenderWindow> window);
 
 	void reset();
+    float getStamina();
 
 private:
 	float speed;
 	float time_scale;
 	sf::CircleShape my_sprite;
+
+    float stamina;
 };
 
 #endif
