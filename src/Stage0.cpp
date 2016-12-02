@@ -42,15 +42,7 @@ void Stage0::initEnemyList()
 {
 	Enemy* temp;
 	temp = new Enemy(1);
-	temp->setPos(sf::Vector2f(100.0f, 0.0f));
-	enemy_list.push_back(temp);
-
-	temp = new Enemy(2);
-	temp->setPos(sf::Vector2f(150.0f, 0.0f));
-	enemy_list.push_back(temp);
-
-	temp = new Enemy(3);
-	temp->setPos(sf::Vector2f(200.0f, 0.0f));
+	temp->setPos(sf::Vector2f(1000.0f, 100.0f));
 	enemy_list.push_back(temp);
 }
 
@@ -91,14 +83,16 @@ void Stage0::enemyUpdate()
 
 		// remove enemy
 
-	const float combat_range = 50.0f;
+	const float combat_range = 100.0f;
 	bool toEnterCombat = false;
 	for (auto e : enemy_list) {
-		if (p.getPos().x > e->getPos().x) {
+		std::cout << "dist=" << calcDistance(e->getPos(), p.getPos()) << std::endl;
+		/*if (p.getPos().x > e->getPos().x) {
 			// remove enemy
 			break;
-		} else if (calcDistance(e->getPos(), p.getPos()) < combat_range) {
+		} else */if (calcDistance(e->getPos(), p.getPos()) < combat_range) {
 			toEnterCombat = true;
+			std::cout << "hello\n";
 		}
 	}
 
