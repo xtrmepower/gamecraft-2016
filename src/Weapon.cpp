@@ -19,7 +19,7 @@ Weapon::Weapon(int id) {
 	switch (id) {
 	case 0:
 		name = "Bow";
-		texture = ASSETMGR->weapon_texture_0;
+		// texture = ASSETMGR->weapon_texture_0;
 		range = 100.0f;
 		damage = 100.0f;
 		weapon_scale = 10.0f;
@@ -34,7 +34,7 @@ Weapon::Weapon(int id) {
 		break;
 	case 1:
 		name = "Musket";
-		texture = ASSETMGR->weapon_texture_1;
+		// texture = ASSETMGR->weapon_texture_1;
 		range = 50.0f;
 		damage = 200.0f;
 		weapon_scale = 100.0f;
@@ -49,7 +49,7 @@ Weapon::Weapon(int id) {
 		break;
 	case 2:
 		name = "Swrod";
-		texture = ASSETMGR->weapon_texture_2;
+		// texture = ASSETMGR->weapon_texture_2;
 		range = 0.0f;
 		damage = 100.0f;
 		weapon_scale = 1.0f;
@@ -112,7 +112,7 @@ float Weapon::calculateWinningChance(std::vector<int> enemy_type) {
 		if (damage_modifiers.count(i) == 0) {
 			assert(false && "Reason: Unhandled enemy type");
 		} else {
-			winning_chance += damage_modifiers[i];
+			winning_chance += damage_modifiers[enemy_type[i]];
 		}
 	}
 	winning_chance /= (float)enemy_type.size();
