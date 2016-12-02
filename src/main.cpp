@@ -3,6 +3,7 @@
 #include "AssetManager.hpp"
 #include "Game.hpp"
 #include "MainMenu.hpp"
+#include "MissionSelect.hpp"
 #include "OptionMenu.hpp"
 
 std::unique_ptr<AssetManager> ASSETMGR;
@@ -35,7 +36,8 @@ int main(int argc, char* argv[]) {
 		}
 		case ViewMode::IN_GAME:
 		{
-			current_mode = game.view_loop();
+			MissionSelect ms(window);
+			current_mode = ms.view_loop();
 			break;
 		}
 		case ViewMode::LOAD_SAVE: // a.k.a. "Continue"

@@ -36,6 +36,8 @@ public:
 		: window(window_), res(window_->getSize()) {
 		// Scale factors should be a multiple of the 1280x720 resolution.
 		scale_factor = sf::Vector2f(res.x / 1280.0f, res.y / 720.0f);
+		scale_gradient = std::sqrtf(std::powf(scale_factor.x, 2.0f) +
+									std::powf(scale_factor.y, 2.0f));
 	}
 	~View() {}
 
@@ -49,6 +51,9 @@ public:
 	virtual const ViewMode view_loop() = 0;
 
 protected:
+	// This applies changes accumulated with processEvent to the game state once every FPS.
+	virtual void update() {}
+
 	// All state loops have the same structure, but may have different return protocols.
 	void standardStateLoop();
 
@@ -71,6 +76,7 @@ protected:
 
 	std::shared_ptr<sf::RenderWindow> window;
 	sf::Vector2f scale_factor;
+	float scale_gradient;
 	sf::Vector2u res; // Resolution
 	bool exit_state;
 };

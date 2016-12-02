@@ -108,18 +108,26 @@ void MainMenu::processJoystickButton(const int jsid, const int button) {
 void MainMenu::processJoystickMove(const sf::Event::JoystickMoveEvent &e) {
 	switch (e.axis) {
 	case sf::Joystick::Axis::PovY:
+	{
+		if (e.position < -99.0f)
+			++current_option;
+		else if (e.position > 99.0f)
+			--current_option;
+		break;
+	}
 	case sf::Joystick::Axis::Y:
 	{
 		if (e.position > 99.0f)
 			++current_option;
 		else if (e.position < -99.0f)
 			--current_option;
-		if (current_option > 4)
-			current_option = 1;
-		if (current_option < 1)
-			current_option = 4;
 		break;
 	}
 	default: break;
 	}
+
+	if (current_option > 4)
+		current_option = 1;
+	if (current_option < 1)
+		current_option = 4;
 }
