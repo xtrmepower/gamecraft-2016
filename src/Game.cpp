@@ -11,10 +11,13 @@ void Game::draw() {
 	window->display();
 }
 
+void Game::update() {
+}
+
 void Game::processKeypress(const sf::Keyboard::Key & key) {
 	switch (key) {
 	case sf::Keyboard::Escape: exit_state = true; break;
-	default: // Do nothing
+	default: break; // Do nothing
 	}
 }
 

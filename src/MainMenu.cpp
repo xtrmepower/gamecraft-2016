@@ -37,6 +37,15 @@ const ViewMode MainMenu::view_loop() {
 void MainMenu::draw() {
 	window->clear(sf::Color(64, 64, 127));
 
+	window->draw(newgame_btn);
+	window->draw(continue_btn);
+	window->draw(options_btn);
+	window->draw(exit_btn);
+
+	window->display();
+}
+
+void MainMenu::update() {
 	auto highlight_option = [] (sf::Text &btn) -> void {
 		btn.setOutlineColor(sf::Color::Yellow);
 		btn.setOutlineThickness(2.0f);
@@ -53,18 +62,11 @@ void MainMenu::draw() {
 	unhighlight_option(exit_btn);
 
 	switch (current_option) {
-	case Option::NEW_GAME: highlight_option(newgame_btn);break;
+	case Option::NEW_GAME: highlight_option(newgame_btn); break;
 	case Option::CONTINUE: highlight_option(continue_btn); break;
 	case Option::OPTIONS: highlight_option(options_btn); break;
 	case Option::EXIT: highlight_option(exit_btn); break;
 	}
-
-	window->draw(newgame_btn);
-	window->draw(continue_btn);
-	window->draw(options_btn);
-	window->draw(exit_btn);
-
-	window->display();
 }
 
 void MainMenu::processKeypress(const sf::Keyboard::Key &key) {

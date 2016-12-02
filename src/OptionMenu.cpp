@@ -35,6 +35,13 @@ const ViewMode OptionMenu::view_loop() {
 void OptionMenu::draw() {
 	window->clear(sf::Color(64, 64, 127));
 
+	window->draw(resolution_disp);
+	window->draw(difficulty_disp);
+
+	window->display();
+}
+
+void OptionMenu::update() {
 	auto highlight_option = [] (sf::Text &btn) -> void {
 		btn.setOutlineColor(sf::Color::Yellow);
 		btn.setOutlineThickness(1.0f);
@@ -47,7 +54,7 @@ void OptionMenu::draw() {
 
 	unhighlight_option(resolution_disp);
 	unhighlight_option(difficulty_disp);
-	
+
 	switch (difficulty) {
 	default:
 	case 0: difficulty_disp.setString("Easy"); break;
@@ -61,11 +68,6 @@ void OptionMenu::draw() {
 	case Option::SCRN_RES: highlight_option(resolution_disp); break;
 	case Option::DIFFICULTY: highlight_option(difficulty_disp); break;
 	}
-
-	window->draw(resolution_disp);
-	window->draw(difficulty_disp);
-
-	window->display();
 }
 
 void OptionMenu::processKeypress(const sf::Keyboard::Key &key) {

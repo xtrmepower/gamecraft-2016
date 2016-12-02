@@ -48,12 +48,12 @@ public:
 	// then it should return the EXIT ViewMode.
 	virtual const ViewMode view_loop() = 0;
 
-	// This applies changes accumulated with processEvent to the game state once every FPS.
-	virtual void update() {}
-
 protected:
 	// All state loops have the same structure, but may have different return protocols.
 	void standardStateLoop();
+
+	// This applies changes accumulated with processEvent to the game state once every FPS.
+	virtual void update() {}
 
 	// All menus must have these basic event processing formulas.
 	// At least one event must set exit_state to false; otherwise the state will never be
