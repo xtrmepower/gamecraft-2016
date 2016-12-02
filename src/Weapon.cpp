@@ -25,6 +25,8 @@ Weapon::Weapon(int id) {
 		weapon_scale = 10.0f;
 		stamina_scale = 10.0f;
 
+        durability = 10;
+
 		damage_modifiers[0] = middle;
 		damage_modifiers[1] = high;
 		damage_modifiers[2] = middle;
@@ -38,6 +40,8 @@ Weapon::Weapon(int id) {
 		weapon_scale = 100.0f;
 		stamina_scale = 1.0f;
 
+        durability = 5;
+
 		damage_modifiers[0] = definite;
 		damage_modifiers[1] = high;
 		damage_modifiers[2] = middle;
@@ -50,6 +54,8 @@ Weapon::Weapon(int id) {
 		damage = 100.0f;
 		weapon_scale = 1.0f;
 		stamina_scale = 100.0f;
+
+        durability = 20;
 
 		damage_modifiers[0] = none;
 		damage_modifiers[1] = high;
@@ -112,4 +118,12 @@ float Weapon::calculateWinningChance(std::vector<int> enemy_type) {
 	winning_chance /= (float)enemy_type.size();
 
 	return winning_chance;
+}
+
+void Weapon::useWeapon() {
+    durability--;
+}
+
+bool Weapon::isUsable() {
+    return durability > 0;
 }
