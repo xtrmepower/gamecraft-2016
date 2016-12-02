@@ -4,10 +4,12 @@
 #include <SFML/Graphics.hpp>
 #include "View.hpp"
 
+#include "Stage0.hpp"
+
 // The game view
 class Game : public View {
 public:
-	Game(std::shared_ptr<sf::RenderWindow> window_) : View(window_) {}
+	Game(std::shared_ptr<sf::RenderWindow> window_) : View(window_), stage0(window_) {}
 
 	void draw() override;
 	const ViewMode view_loop() override;
@@ -22,6 +24,8 @@ private:
 
 	//Player p
 	//PlayerPosition x, y
+
+	Stage0 stage0;
 };
 
 #endif // GAME_HPP

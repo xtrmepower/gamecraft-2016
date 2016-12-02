@@ -8,10 +8,12 @@ const ViewMode Game::view_loop() {
 void Game::draw() {
 	window->clear();
 	// Draw here
+	stage0.draw();
 	window->display();
 }
 
 void Game::update() {
+	stage0.update();
 }
 
 void Game::processKeypress(const sf::Keyboard::Key & key) {
