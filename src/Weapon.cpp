@@ -2,6 +2,8 @@
 #include "Weapon.hpp"
 #include "AssetManager.hpp"
 
+#include <cassert>
+
 extern std::unique_ptr<AssetManager> ASSETMGR;
 
 Weapon::Weapon(int id) {
@@ -48,7 +50,7 @@ float Weapon::calculateBossDamage(float distance) {
     return 0.0f;
 }
 
-float Weapon::calculateWinningChance(int enemy_type) {
+float Weapon::calculateWinningChance(std::vector<int> enemy_type) {
     float winning_chance = 0.0f;
     
     float none = 0.0f;
@@ -59,42 +61,61 @@ float Weapon::calculateWinningChance(int enemy_type) {
 
     switch (id) {
     case 0:  // Bow
-        switch (enemy_type) {
-        case 0: // Harambe
-            winning_chance = middle;
-            break;
-        case 1: // Doge
-            winning_chance = high;
-            break;
-        case 2: // Nicolas Cage
-            winning_chance = middle;
-            break;
+        for (int i = 0; i < enemy_type.size(); i++) {
+            switch (enemy_type[i]) {
+            case 0:
+                winning_chance += middle;
+                break;
+            case 1:
+                winning_chance += high;
+                break;
+            case 2:
+                winning_chance += middle;
+                break;
+            default:
+                assert(false && "Reason: Unhandled enemy type");
+            }
         }
+        winning_chance /= (float) enemy_type.size();
+        break;
     case 1:  // Musket
-        switch (enemy_type) {
-        case 0: // Harambe
-            winning_chance = definite;
-            break;
-        case 1: // Doge
-            winning_chance = high;
-            break;
-        case 2: // Nicolas Cage
-            winning_chance = middle;
-            break;
+        for (int i = 0; i < enemy_type.size(); i++) {
+            switch (enemy_type[i]) {
+            case 0:
+                winning_chance += definite;
+                break;
+            case 1:
+                winning_chance += high;
+                break;
+            case 2:
+                winning_chance += middle;
+                break;
+            default:
+                assert(false && "Reason: Unhandled enemy type");
+            }
         }
+        winning_chance /= (float) enemy_type.size();
+        break;
     case 2:  // Sword
-        switch (enemy_type) {
-        case 0: // Harambe
-            winning_chance = none;
-            break;
-        case 1: // Doge
-            winning_chance = high;
-            break;
-        case 2: // Nicolas Cage
-            winning_chance = middle;
-            break;
+        for (int i = 0; i < enemy_type.size(); i++) {
+            switch (enemy_type[i]) {
+            case 0:
+                winning_chance += none;
+                break;
+            case 1:
+                winning_chance += high;
+                break;
+            case 2:
+                winning_chance += middle;
+                break;
+            default:
+                assert(false && "Reason: Unhandled enemy type");
+            }
         }
+        winning_chance /= (float) enemy_type.size();
+        break;
+    default:
+        assert(false && "Reason: Unhandled weapon type");
     }
     return winning_chance;
 }
-

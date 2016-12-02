@@ -10,17 +10,17 @@ Enemy::Enemy(int id) {
     case 0:
         name = "Harambe";
         texture = ASSETMGR->enemy_texture_0;
-        enemy_type = 0;
+        enemy_type = { 0 };
         break;
     case 1:
         name = "Doge";
         texture = ASSETMGR->enemy_texture_1;
-        enemy_type = 1;
+        enemy_type = { 1 };
         break;
     case 2:
         name = "Nicolas Cage";
         texture = ASSETMGR->enemy_texture_2;
-        enemy_type = 2;
+        enemy_type = { 2 };
         break;
     }
 }
@@ -33,6 +33,6 @@ sf::Texture Enemy::getTexture() {
     return texture;
 }
 
-int Enemy::getEnemyType() {
+std::vector<int> Enemy::getEnemyType() {
     return enemy_type;
 }
