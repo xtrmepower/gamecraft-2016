@@ -1,5 +1,7 @@
 #include "MissionSelect.hpp"
 
+extern std::unique_ptr<GameData> GAMEDATA;
+
 MissionSelect::MissionSelect(std::shared_ptr<sf::RenderWindow> window_) : View(window_) {
 	curr_mission_choice = 0;
 	avail_missions = 1;
@@ -180,4 +182,6 @@ void MissionSelect::processJoystickMove(const sf::Event::JoystickMoveEvent & e) 
 	// Highlight new option.
 	mission_btns[curr_mission_choice].setOutlineColor(sf::Color::Green);
 	mission_btns[curr_mission_choice].setOutlineThickness(4.0f);
+
+	GAMEDATA->selected_level = curr_mission_choice;
 }

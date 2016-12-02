@@ -5,6 +5,7 @@
 #include <memory>
 #include <SFML/Graphics.hpp>
 #include "AssetManager.hpp"
+#include "GameData.hpp"
 #include "util.hpp"
 
 constexpr float FPS = 1.0f/60.0f;

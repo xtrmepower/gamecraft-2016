@@ -8,6 +8,7 @@
 #include "OptionMenu.hpp"
 
 std::unique_ptr<AssetManager> ASSETMGR;
+std::unique_ptr<GameData> GAMEDATA;
 
 int main(int argc, char* argv[]) {
 	int width = 1280, height = 720;
@@ -15,6 +16,7 @@ int main(int argc, char* argv[]) {
 	ViewMode current_mode = ViewMode::MAIN_MENU;
 
 	ASSETMGR = std::make_unique<AssetManager>();
+	GAMEDATA = std::make_unique<GameData>();
 	MainMenu main_menu(window);
 	OptionMenu option_menu(window);
 	Game game(window);
@@ -23,7 +25,7 @@ int main(int argc, char* argv[]) {
 
 	// Main game loop
 	while (window->isOpen() && current_mode != ViewMode::EXIT) {
-
+		std::cout << GAMEDATA->selected_level << std::endl;
 		switch (current_mode) {
 		case ViewMode::MAIN_MENU:
 		{
