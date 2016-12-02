@@ -2,6 +2,7 @@
 #include "Weapon.hpp"
 #include "AssetManager.hpp"
 
+#include <math.h>
 #include <cassert>
 
 extern std::unique_ptr<AssetManager> ASSETMGR;
@@ -21,6 +22,8 @@ Weapon::Weapon(int id) {
         texture = ASSETMGR->weapon_texture_0;
         range = 100.0f;
         damage = 100.0f;
+        weapon_scale = 10.0f;
+        stamina_scale = 10.0f;
         
         damage_modifiers[0] = middle;
         damage_modifiers[1] = high;
@@ -32,6 +35,8 @@ Weapon::Weapon(int id) {
         texture = ASSETMGR->weapon_texture_1;
         range = 50.0f;
         damage = 200.0f;
+        weapon_scale = 100.0f;
+        stamina_scale = 1.0f;
 
         damage_modifiers[0] = definite;
         damage_modifiers[1] = high;
@@ -43,6 +48,8 @@ Weapon::Weapon(int id) {
         texture = ASSETMGR->weapon_texture_2;
         range = 0.0f;
         damage = 100.0f;
+        weapon_scale = 1.0f;
+        stamina_scale = 100.0f;
 
         damage_modifiers[0] = none;
         damage_modifiers[1] = high;
@@ -69,6 +76,11 @@ float Weapon::getDamage() {
 }
 
 float Weapon::calculateBossDamage(std::vector<int> enemy_type, float distance) {
+    if (distance > range) {
+        return 0.0f;
+    } else if (distance < 0) {
+        distance = 0.0f;
+    }
     float boss_damage_modifier = 0.0f;
 
     for (int i = 0; i < enemy_type.size(); i++) {
@@ -81,8 +93,8 @@ float Weapon::calculateBossDamage(std::vector<int> enemy_type, float distance) {
     boss_damage_modifier /= (float) enemy_type.size();
     boss_damage_modifier *= 2.0f;
 
-    // linear for now
-    float distance_modifier = 1 - distance / range;
+    // scale^x, x in range(0, 1), y in range(0, scale)
+    float distance_modifier = pow(weapon_scale, 1.0f - distance / range);
 
     return damage * boss_damage_modifier * distance_modifier;
 }

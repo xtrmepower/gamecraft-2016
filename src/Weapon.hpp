@@ -16,5 +16,7 @@ private:
     sf::Texture texture;
     float range;
     float damage;
+    float weapon_scale;
+    float stamina_scale;
     std::map<int, float> damage_modifiers;
 };
