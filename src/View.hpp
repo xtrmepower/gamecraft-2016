@@ -51,9 +51,6 @@ public:
 	virtual const ViewMode view_loop() = 0;
 
 protected:
-	// This applies changes accumulated with processEvent to the game state once every FPS.
-	virtual void update() {}
-
 	// All state loops have the same structure, but may have different return protocols.
 	void standardStateLoop();
 

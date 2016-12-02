@@ -2,6 +2,7 @@
 
 #include "AssetManager.hpp"
 #include "Game.hpp"
+#include "GameData.hpp"
 #include "MainMenu.hpp"
 #include "MissionSelect.hpp"
 #include "OptionMenu.hpp"
