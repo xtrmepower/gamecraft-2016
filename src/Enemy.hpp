@@ -6,10 +6,10 @@ public:
     Enemy(int id);
     std::string getName();
     sf::Texture getTexture();
-    int getEnemyType();
+    std::vector<int> getEnemyType();
 private:
     int id;
     std::string name;
     sf::Texture texture;
-    int enemy_type;
+    std::vector<int> enemy_type;
 };

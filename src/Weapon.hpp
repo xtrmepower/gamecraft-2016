@@ -9,7 +9,7 @@ public:
     float getRange();
     float getDamage();
     float calculateBossDamage(float distance);
-    float calculateWinningChance(int enemy_type);
+    float calculateWinningChance(std::vector<int> enemy_type);
 private:
     int id;
     std::string name;
