@@ -8,7 +8,7 @@ public:
     sf::Texture getTexture();
     float getRange();
     float getDamage();
-    float calculateBossDamage(float distance);
+    float calculateBossDamage(std::vector<int> enemy_type, float distance);
     float calculateWinningChance(std::vector<int> enemy_type);
 private:
     int id;

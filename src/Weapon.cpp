@@ -68,8 +68,23 @@ float Weapon::getDamage() {
     return damage;
 }
 
-float Weapon::calculateBossDamage(float distance) {
-    return 0.0f;
+float Weapon::calculateBossDamage(std::vector<int> enemy_type, float distance) {
+    float boss_damage_modifier = 0.0f;
+
+    for (int i = 0; i < enemy_type.size(); i++) {
+        if (damage_modifiers.count(i) == 0) {
+            assert(false && "Reason: Unhandled enemy type");
+        } else {
+            boss_damage_modifier += damage_modifiers[i];
+        }
+    }
+    boss_damage_modifier /= (float) enemy_type.size();
+    boss_damage_modifier *= 2.0f;
+
+    // linear for now
+    float distance_modifier = 1 - distance / range;
+
+    return damage * boss_damage_modifier * distance_modifier;
 }
 
 float Weapon::calculateWinningChance(std::vector<int> enemy_type) {
@@ -82,7 +97,7 @@ float Weapon::calculateWinningChance(std::vector<int> enemy_type) {
             winning_chance += damage_modifiers[i];
         }
     }
-    winning_chance /= (float)enemy_type.size();
+    winning_chance /= (float) enemy_type.size();
 
     return winning_chance;
 }
