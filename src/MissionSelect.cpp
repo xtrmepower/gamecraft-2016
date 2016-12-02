@@ -45,6 +45,7 @@ void MissionSelect::draw() {
 
 const ViewMode MissionSelect::view_loop() {
 	View::standardStateLoop();
+	GAMEDATA->selected_level = curr_mission_choice;
 	return to_return;
 }
 
@@ -193,6 +194,4 @@ void MissionSelect::processJoystickMove(const sf::Event::JoystickMoveEvent & e) 
 	// Highlight new option.
 	mission_btns[curr_mission_choice].setOutlineColor(sf::Color::Green);
 	mission_btns[curr_mission_choice].setOutlineThickness(4.0f);
-
-	GAMEDATA->selected_level = curr_mission_choice;
 }

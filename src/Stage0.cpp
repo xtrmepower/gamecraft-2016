@@ -51,7 +51,7 @@ void Stage0::initEnemyList()
 	temp->setPos(sf::Vector2f(150.0f, 0.0f));
 	enemy_list.push_back(temp);
 
-	temp = new Enemy(3);
+	temp = new Enemy(0);
 	temp->setPos(sf::Vector2f(200.0f, 0.0f));
 	enemy_list.push_back(temp);
 }
