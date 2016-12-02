@@ -6,8 +6,9 @@ Game::Game(std::shared_ptr<sf::RenderWindow> window_)
 }
 
 const ViewMode Game::view_loop() {
+	stage0.onEnter();
 	View::standardStateLoop();
-	stage0.reset();
+	stage0.onExit();
 	return ViewMode::MAIN_MENU;
 }
 

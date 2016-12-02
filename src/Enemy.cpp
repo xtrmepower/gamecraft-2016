@@ -24,6 +24,7 @@ Enemy::Enemy(int id) {
         break;
     }
 
+	my_sprite.setSize(sf::Vector2f(5.0f, 100.0f));
 	my_sprite.setFillColor(sf::Color(200, 50, 50));
 }
 

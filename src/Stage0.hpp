@@ -14,6 +14,9 @@ public:
 
 	void reset();
 
+	void onEnter();
+	void onExit();
+
 private:
 	Player p;
 
@@ -21,7 +24,10 @@ private:
 	sf::Vector2f old_view_center;
 	std::shared_ptr<sf::RenderWindow> window;
 
-	std::vector<Enemy> enemy_list;
+	std::vector<Enemy*> enemy_list;
+
+	void initEnemyList();
+	void deinitEnemyList();
 };
 
 #endif
