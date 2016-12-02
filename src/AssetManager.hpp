@@ -11,6 +11,15 @@ public:
 	AssetManager() {
 		if (!main_menu_font.loadFromFile("../../data/CrimsonText-Roman.ttf"))
 			throw std::runtime_error("Font not found!");
+
+		if (!weapon_texture_0.loadFromFile("../../data/W_Bow01.png"))
+			throw std::runtime_error("Texture W_Bow01.png not found!");
+
+		if (!weapon_texture_1.loadFromFile("../../data/W_Gun001.png"))
+			throw std::runtime_error("Texture W_Gun001.png not found!");
+
+		if (!weapon_texture_2.loadFromFile("../../data/W_Sword001.png"))
+			throw std::runtime_error("Texture W_Sword001.png not found!");
 	}
 
 	~AssetManager() {}

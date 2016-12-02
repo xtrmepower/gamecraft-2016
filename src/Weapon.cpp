@@ -8,7 +8,7 @@
 extern std::unique_ptr<AssetManager> ASSETMGR;
 
 Weapon::Weapon(int id) {
-	id = id;
+	this->id = id;
 
 	float none = 0.0f;
 	float low = 0.25f;
@@ -19,7 +19,7 @@ Weapon::Weapon(int id) {
 	switch (id) {
 	case 0:
 		name = "Bow";
-		// texture = ASSETMGR->weapon_texture_0;
+		texture = ASSETMGR->weapon_texture_0;
 		range = 100.0f;
 		damage = 100.0f;
 		weapon_scale = 10.0f;
@@ -34,7 +34,7 @@ Weapon::Weapon(int id) {
 		break;
 	case 1:
 		name = "Musket";
-		// texture = ASSETMGR->weapon_texture_1;
+		texture = ASSETMGR->weapon_texture_1;
 		range = 50.0f;
 		damage = 200.0f;
 		weapon_scale = 100.0f;
@@ -48,8 +48,8 @@ Weapon::Weapon(int id) {
 
 		break;
 	case 2:
-		name = "Swrod";
-		// texture = ASSETMGR->weapon_texture_2;
+		name = "Sword";
+		texture = ASSETMGR->weapon_texture_2;
 		range = 0.0f;
 		damage = 100.0f;
 		weapon_scale = 1.0f;

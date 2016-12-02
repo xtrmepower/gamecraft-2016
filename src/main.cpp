@@ -82,6 +82,9 @@ void test_ground() {
 }
 
 int main(int argc, char* argv[]) {
+	ASSETMGR = std::make_unique<AssetManager>();
+	GAMEDATA = std::make_unique<GameData>();
+
     bool cmd_mode = true;
     if (cmd_mode) {
         test_ground();
@@ -90,9 +93,6 @@ int main(int argc, char* argv[]) {
 	int width = 1280, height = 720;
 	auto window = std::make_shared<sf::RenderWindow>(sf::VideoMode(width, height), "GAME");
 	ViewMode current_mode = ViewMode::MAIN_MENU;
-
-	ASSETMGR = std::make_unique<AssetManager>();
-	GAMEDATA = std::make_unique<GameData>();
 	MainMenu main_menu(window);
 	OptionMenu option_menu(window);
 	Game game(window);
