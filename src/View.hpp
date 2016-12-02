@@ -22,7 +22,7 @@ enum ViewMode {
 
 	// Enums used while in playing state
 	INGAME_MENU = 10,
-	INGAME_BATTLE = 11
+	SCORE = 11
 };
 
 // View is the asbtract class that covers all viewable scenes of the game.
