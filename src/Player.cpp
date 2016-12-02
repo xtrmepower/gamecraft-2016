@@ -3,10 +3,11 @@
 Player::Player()
 {
 	pos = sf::Vector2f(100.0f, 100.0f);
-	speed = 50.0f;
+	speed = 5.0f;
+	time_scale = 1.0f;
 
-	mySprite.setRadius(50.0f);
-	mySprite.setFillColor(sf::Color(100, 250, 50));
+	my_sprite.setRadius(50.0f);
+	my_sprite.setFillColor(sf::Color(100, 250, 50));
 }
 
 Player::~Player()
@@ -15,16 +16,21 @@ Player::~Player()
 
 void Player::update()
 {
-	pos.x += speed;
+	pos.x += speed * time_scale;
 }
 
 void Player::draw(std::shared_ptr<sf::RenderWindow> window)
 {
-	mySprite.setPosition(pos);
-	window->draw(mySprite);
+	my_sprite.setPosition(pos);
+	window->draw(my_sprite);
 }
 
 void Player::reset()
 {
 	pos = sf::Vector2f(100.0f, 100.0f);
+}
+
+sf::Vector2f Player::getPos() const
+{
+	return pos;
 }
