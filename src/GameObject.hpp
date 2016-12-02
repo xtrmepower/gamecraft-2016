@@ -10,10 +10,11 @@ public:
 	virtual void reset() = 0;
 
 	sf::Vector2f getPos() const { return pos; }
-	void setPos(sf::Vector2f newPos) { pos = newPos; }
+	void setPos(sf::Vector2f newPos) { pos = newPos; original_pos = newPos; }
 
 protected:
 	sf::Vector2f pos;
+	sf::Vector2f original_pos;
 };
 
 #endif

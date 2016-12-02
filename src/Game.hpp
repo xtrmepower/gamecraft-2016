@@ -4,7 +4,9 @@
 #include <SFML/Graphics.hpp>
 #include "View.hpp"
 
-#include "Stage0.hpp"
+#include "Stage.hpp"
+
+//#include "Stage0.hpp"
 
 // The game view
 class Game : public View {
@@ -25,7 +27,8 @@ private:
 	//Player p
 	//PlayerPosition x, y
 
-	Stage0 stage0;
+	std::vector<Stage> stage_list;
+	int selected_stage;
 };
 
 #endif // GAME_HPP

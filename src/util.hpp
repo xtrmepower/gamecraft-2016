@@ -32,4 +32,15 @@ inline bool getChanceOutcome(float chance) {
     return chance >= (rand() % 101) / 100.0f;
 }
 
+inline float calcDistance(sf::Vector2f pos1, sf::Vector2f pos2)
+{
+	float dx = pos2.x - pos1.x;
+	dx *= dx;
+
+	float dy = pos2.y - pos1.y;
+	dy *= dy;
+
+	return sqrt(dx + dy);
+}
+
 #endif

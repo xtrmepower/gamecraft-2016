@@ -1,26 +1,31 @@
 #include "Game.hpp"
 
 Game::Game(std::shared_ptr<sf::RenderWindow> window_)
-	: View(window_), stage0(window_)
+	: View(window_)
 {
+	stage_list.push_back(Stage(window_, 0));
+	stage_list[0].addEnemy(0, sf::Vector2f(1000.0f, 0.0f));
+	stage_list[0].setPlayerStartPos(sf::Vector2f(0.0f, 0.0f));
+
+	selected_stage = 0;
 }
 
 const ViewMode Game::view_loop() {
-	stage0.onEnter();
+	stage_list[selected_stage].onEnter();
 	View::standardStateLoop();
-	stage0.onExit();
+	stage_list[selected_stage].onExit();
 	return ViewMode::MAIN_MENU;
 }
 
 void Game::draw() {
 	window->clear();
 	// Draw here
-	stage0.draw();
+	stage_list[selected_stage].draw();
 	window->display();
 }
 
 void Game::update() {
-	stage0.update();
+	stage_list[selected_stage].update();
 }
 
 void Game::processKeypress(const sf::Keyboard::Key & key) {

@@ -5,7 +5,7 @@ const float DILATED_TIME_SCALE = 0.2f;
 
 Player::Player()
 {
-	pos = sf::Vector2f(100.0f, 100.0f);
+	//pos = sf::Vector2f(100.0f, 100.0f);
 	speed = 5.0f;
 	time_scale = 1.0f;
 	isTimeDilated = false;
@@ -33,7 +33,7 @@ void Player::draw(std::shared_ptr<sf::RenderWindow> window)
 
 void Player::reset()
 {
-	pos = sf::Vector2f(100.0f, 100.0f);
+	pos = original_pos;
 }
 
 void Player::startTimeDilation()

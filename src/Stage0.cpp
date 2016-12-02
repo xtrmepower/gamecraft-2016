@@ -108,14 +108,3 @@ void Stage0::endCombat()
 {
 	p.endTimeDilation();
 }
-
-float Stage0::calcDistance(sf::Vector2f pos1, sf::Vector2f pos2)
-{
-	float dx = pos2.x - pos1.x;
-	dx *= dx;
-
-	float dy = pos2.y - pos1.y;
-	dy *= dy;
-
-	return sqrt(dx + dy);
-}
