@@ -21,6 +21,7 @@ enum ViewMode {
 	EXIT = 4,
 
 	// Enums used while in playing state
+	MISSION_SELECT = 9,
 	INGAME_MENU = 10,
 	SCORE = 11
 };

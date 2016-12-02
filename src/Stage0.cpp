@@ -13,6 +13,17 @@ Stage0::Stage0(std::shared_ptr<sf::RenderWindow> window_)
 	old_view_center.y = window_->getView().getCenter().y;
 
 	window->setView(my_view);
+
+	//TODO: consider pushing to a init func
+	Enemy temp(1);
+	temp.setPos(sf::Vector2f(100, 0));
+	enemy_list.push_back(temp);
+
+	temp.setPos(sf::Vector2f(150, 0));
+	enemy_list.push_back(temp);
+
+	temp.setPos(sf::Vector2f(200, 0));
+	enemy_list.push_back(temp);
 }
 
 void Stage0::draw()

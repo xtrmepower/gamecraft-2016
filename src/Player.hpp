@@ -14,8 +14,6 @@ public:
 
 	void reset();
 
-	sf::Vector2f getPos() const;
-
 private:
 	float speed;
 	float time_scale;

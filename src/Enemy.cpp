@@ -23,6 +23,8 @@ Enemy::Enemy(int id) {
         enemy_type = { 2 };
         break;
     }
+
+	my_sprite.setFillColor(sf::Color(200, 50, 50));
 }
 
 std::string Enemy::getName() {
@@ -35,4 +37,20 @@ sf::Texture Enemy::getTexture() {
 
 std::vector<int> Enemy::getEnemyType() {
     return enemy_type;
+}
+
+void Enemy::update()
+{
+
+}
+
+void Enemy::draw(std::shared_ptr<sf::RenderWindow> window)
+{
+	my_sprite.setPosition(pos);
+	window->draw(my_sprite);
+}
+
+void Enemy::reset()
+{
+
 }

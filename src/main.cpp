@@ -39,6 +39,11 @@ int main(int argc, char* argv[]) {
 		}
 		case ViewMode::IN_GAME:
 		{
+			current_mode = game.view_loop();
+			break;
+		}
+		case ViewMode::MISSION_SELECT:
+		{
 			MissionSelect ms(window);
 			current_mode = ms.view_loop();
 			break;

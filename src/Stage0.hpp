@@ -2,6 +2,7 @@
 #define STAGE0_HPP
 
 #include "Player.hpp"
+#include "Enemy.hpp"
 #include <iostream> 
 
 class Stage0 {
@@ -19,6 +20,8 @@ private:
 	sf::View my_view;
 	sf::Vector2f old_view_center;
 	std::shared_ptr<sf::RenderWindow> window;
+
+	std::vector<Enemy> enemy_list;
 };
 
 #endif

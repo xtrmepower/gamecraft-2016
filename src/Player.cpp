@@ -29,8 +29,3 @@ void Player::reset()
 {
 	pos = sf::Vector2f(100.0f, 100.0f);
 }
-
-sf::Vector2f Player::getPos() const
-{
-	return pos;
-}
