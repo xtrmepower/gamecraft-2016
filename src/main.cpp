@@ -9,10 +9,61 @@
 #include "ScoreScreen.hpp"
 #include "SetupScreen.hpp"
 
+#include "util.hpp"
+#include <cassert>
+
 std::unique_ptr<AssetManager> ASSETMGR;
 std::unique_ptr<GameData> GAMEDATA;
 
+void test_ground() {
+    Weapon weapon(1);
+    Enemy enemy(0);
+
+    float chance = weapon.calculateWinningChance(enemy.getEnemyType());
+    std::cout << "Weapon: " << weapon.getName() << std::endl;
+    std::cout << "Enemy: " << enemy.getName() << std::endl;
+    std::cout << "Chance: " << chance << std::endl;
+    for (int i = 0; i < 10; i++) {
+        if (getChanceOutcome(chance)) {
+            std::cout << "Win" << std::endl;
+        } else {
+            std::cout << "Loss" << std::endl;
+        }
+    }
+
+    Enemy boss(0, true);
+    std::cout << "Boss: " << boss.getName() << std::endl;
+
+    float distance;
+    float damage;
+
+    distance = 50.0f;
+    damage = weapon.calculateBossDamage(boss.getEnemyType(), distance);
+    std::cout << "Distance: " << distance << std::endl;
+    std::cout << "Boss Damage: " << damage << std::endl;
+
+    distance = 25.0f;
+    damage = weapon.calculateBossDamage(boss.getEnemyType(), distance);
+    std::cout << "Distance: " << distance << std::endl;
+    std::cout << "Boss Damage: " << damage << std::endl;
+
+    distance = 10.0f;
+    damage = weapon.calculateBossDamage(boss.getEnemyType(), distance);
+    std::cout << "Distance: " << distance << std::endl;
+    std::cout << "Boss Damage: " << damage << std::endl;
+
+    distance = 0.0f;
+    damage = weapon.calculateBossDamage(boss.getEnemyType(), distance);
+    std::cout << "Distance: " << distance << std::endl;
+    std::cout << "Boss Damage: " << damage << std::endl;
+}
+
 int main(int argc, char* argv[]) {
+    bool cmd_mode = true;
+    if (cmd_mode) {
+        test_ground();
+    }
+
 	int width = 1280, height = 720;
 	auto window = std::make_shared<sf::RenderWindow>(sf::VideoMode(width, height), "GAME");
 	ViewMode current_mode = ViewMode::MAIN_MENU;
