@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFML/System.hpp>
+#include <random>
 
 // Element-wise multiplication
 template <typename T>
@@ -29,7 +30,10 @@ inline sf::RectangleShape create_rect(const sf::Vector2f &pos, const sf::Vector2
 
 // 1.0 chance represents 100% chance
 inline bool getChanceOutcome(float chance) {
-    return chance >= (rand() % 101) / 100.0f;
+    std::random_device rd;
+    std::mt19937 mt(rd());
+    std::uniform_int_distribution<int> dist(0, 1);
+    return chance >= dist(mt);
 }
 
 #endif

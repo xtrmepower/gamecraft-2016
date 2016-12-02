@@ -17,19 +17,42 @@ std::unique_ptr<GameData> GAMEDATA;
 
 void test_ground() {
     Weapon weapon(1);
-    Enemy enemy(0);
-
-    float chance = weapon.calculateWinningChance(enemy.getEnemyType());
     std::cout << "Weapon: " << weapon.getName() << std::endl;
-    std::cout << "Enemy: " << enemy.getName() << std::endl;
+
+    float chance;
+    int win_count;
+
+    Enemy enemy_1(0);
+    chance = weapon.calculateWinningChance(enemy_1.getEnemyType());
+    std::cout << "Enemy: " << enemy_1.getName() << std::endl;
     std::cout << "Chance: " << chance << std::endl;
-    for (int i = 0; i < 10; i++) {
+    win_count = 0;
+    for (int i = 0; i < 20; i++) {
         if (getChanceOutcome(chance)) {
-            std::cout << "Win" << std::endl;
+            std::cout << "W";
+            win_count++;
         } else {
-            std::cout << "Loss" << std::endl;
+            std::cout << "L";
         }
     }
+    std::cout << std::endl;
+    std::cout << "Win: " << win_count << " / 20" << std::endl;
+
+    Enemy enemy_2(1);
+    chance = weapon.calculateWinningChance(enemy_2.getEnemyType());
+    std::cout << "Enemy: " << enemy_2.getName() << std::endl;
+    std::cout << "Chance: " << chance << std::endl;
+    win_count = 0;
+    for (int i = 0; i < 20; i++) {
+        if (getChanceOutcome(chance)) {
+            std::cout << "W";
+            win_count++;
+        } else {
+            std::cout << "L";
+        }
+    }
+    std::cout << std::endl;
+    std::cout << "Win: " << win_count << " / 20" << std::endl;
 
     Enemy boss(0, true);
     std::cout << "Boss: " << boss.getName() << std::endl;
