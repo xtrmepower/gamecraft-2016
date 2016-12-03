@@ -57,8 +57,6 @@ void Game::processKeypress(const sf::Keyboard::Key & key) {
         if (stage_list[selected_stage].isBattlePhase() &&
             !stage_list[selected_stage].weaponSelected()) {
             stage_list[selected_stage].confirmSelectedWeapon();
-            std::cout << "Stage " << selected_stage << std::endl;
-            std::cout << "Weapon Confirmed? " << stage_list[selected_stage].weaponSelected() << std::endl;
 
             enemy = stage_list[selected_stage].getEngagedEnemy();
             weapon = GAMEDATA->getHeldWeapons()[(stage_list[selected_stage].getSelectedWeapon())];
