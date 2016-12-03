@@ -7,6 +7,7 @@
 
 class Weapon : public IGameObject<sf::RectangleShape> {
 public:
+    Weapon() {};
 	Weapon(int id);
 	float getRange() { return range; }
 	float getDamage() { return damage; }

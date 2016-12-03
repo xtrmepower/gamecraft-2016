@@ -101,7 +101,8 @@ float Weapon::calculateWinningChance(std::vector<int> enemy_type) {
 			winning_chance += damage_modifiers[enemy_type[i]];
 		}
 	}
-	winning_chance /= (float)enemy_type.size();
+    assert(enemy_type.size() > 0);
+	winning_chance /= (float) enemy_type.size();
 
 	return winning_chance;
 }

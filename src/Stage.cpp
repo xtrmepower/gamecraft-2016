@@ -3,6 +3,12 @@
 
 extern std::unique_ptr<AssetManager> ASSETMGR;
 
+#include "GameData.hpp"
+
+#include <iostream>
+
+extern std::unique_ptr<GameData> GAMEDATA;
+
 Stage::Stage(std::shared_ptr<sf::RenderWindow> window, int stage_num) {
 	this->window = window;
 	this->stage_num = stage_num;
@@ -27,6 +33,11 @@ void Stage::onEnter() {
 	float size_y = window->getSize().y;
 	my_view.setCenter(size_x*0.5f, size_y*0.5f);
 	my_view.setSize(size_x, size_y);
+
+    selected_weapon = 0;
+    toEnterCombat = false;
+    weapon_selected = false;
+    has_engaged_enemy = false;
 
 	window->setView(my_view);
 }
@@ -64,6 +75,16 @@ void Stage::draw() {
 
 	p.draw(window);
 
+    // std::cout << sizeof(GAMEDATA->getHeldWeapons()) << std::endl;
+    // for (Weapon weapon : GAMEDATA->getHeldWeapons()) {
+    //    std::cout << weapon.getName() << std::endl;
+    // }
+
+    // std::string status = "HI";
+    // std::cout << "Status: " << status << std::endl;
+    // std::cout << "Selected: " << selected_weapon << std::endl;
+
+
 	for (auto e : enemy_list) {
 		e.draw(window);
 	}
@@ -95,8 +116,9 @@ void Stage::setPlayerStartPos(sf::Vector2f pos) {
 	p.setPos(pos);
 }
 
-void Stage::enterCombat() {
+void Stage::enterCombat(Enemy e) {
 	p.startTimeDilation();
+    engaged_enemy = e;
 }
 
 void Stage::endCombat() {
@@ -105,7 +127,8 @@ void Stage::endCombat() {
 
 void Stage::combatCheck() {
 	const float combat_range = 100.0f;
-	bool toEnterCombat = false;
+    Enemy current_e;
+    has_engaged_enemy = false;
 	for (auto e : enemy_list) {
 		sf::Vector2f e_pos = e.getPos();
 		e_pos.x += e.getSize().x * 0.5f;
@@ -115,12 +138,58 @@ void Stage::combatCheck() {
 		p_pos.x += p.getSize().x * 0.5f;
 		p_pos.y += p.getSize().y * 0.5f;
 
-		if (e.isActive() && p_pos.x > e_pos.x) {
-			e.setActive(false);
-		} else if (e.isActive() && calcDistance(e_pos, p_pos) < combat_range + p.getSize().x * 0.5f) {
-			toEnterCombat = true;
-		}
+        if (e.isActive() && calcDistance(e_pos, p_pos) < combat_range + p.getSize().x * 0.5f) {
+            // in range
+            if (e.isActive() && p_pos.x > e_pos.x) {
+                // ignore behind
+                toEnterCombat = false;
+            } else {
+                if (weapon_selected) {
+                    toEnterCombat = false;
+                } else {
+                    toEnterCombat = true;
+                }
+            }
+            current_e = e;
+            has_engaged_enemy = true;
+            break;
+        }
 	}
 
-	toEnterCombat ? enterCombat() : endCombat();
+    if (!has_engaged_enemy) {
+        // out of range
+        toEnterCombat = false;
+        weapon_selected = false;
+        current_e.setActive(false);
+    }
+
+    if (toEnterCombat) {
+        enterCombat(current_e);
+    } else {
+        endCombat();
+    }
+}
+
+int Stage::getSelectedWeapon() {
+    return selected_weapon;
+}
+
+void Stage::setSelectedWeapon(int index) {
+    selected_weapon = index;
+}
+
+bool Stage::isBattlePhase() {
+    return toEnterCombat;
+}
+
+Enemy Stage::getEngagedEnemy() {
+    return engaged_enemy;
+}
+
+bool Stage::weaponSelected() {
+    return weapon_selected;
+}
+
+void Stage::confirmSelectedWeapon() {
+    weapon_selected = true;
 }

@@ -6,6 +6,7 @@
 
 class Enemy : public IAnimatedGameObject<sf::RectangleShape> {
 public:
+    Enemy() {};
 	Enemy(int id, sf::Vector2f pos, bool is_boss = false);
 
 	void update() override {}

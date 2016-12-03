@@ -20,7 +20,15 @@ public:
 	void addEnemy(int type, sf::Vector2f pos);
 	void setPlayerStartPos(sf::Vector2f pos);
 
+    int getSelectedWeapon();
+    void setSelectedWeapon(int index);
+    bool isBattlePhase();
+    Enemy getEngagedEnemy();
+    bool weaponSelected();
+    void confirmSelectedWeapon();
+
 	int stage_num;
+    bool toEnterCombat;
 
 protected:
 	Player p;
@@ -31,7 +39,7 @@ protected:
 
 	std::vector<Enemy> enemy_list;
 
-	virtual void enterCombat();
+	virtual void enterCombat(Enemy e);
 	virtual void endCombat();
 	virtual void combatCheck();
 
@@ -40,6 +48,11 @@ protected:
 	sf::Sprite bg_sprite_0;
 	sf::Sprite bg_sprite_1;
 	sf::Sprite bg_sprite_2;
+
+    int selected_weapon;
+    Enemy engaged_enemy;
+    bool weapon_selected;
+    bool has_engaged_enemy;
 
 private:
 	Stage() {}
