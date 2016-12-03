@@ -30,8 +30,10 @@ SetupScreen::SetupScreen(std::shared_ptr<sf::RenderWindow> window_) : View(windo
 
 	for (auto e : GAMEDATA->getEnemyList())
 		enemy_icons.push_back(e.get_drawable());
-	for (auto w : GAMEDATA->getWeaponList())
+	for (auto w : GAMEDATA->getWeaponList()) {
+		//std::cout << w.getName() << '\t' << w.get_drawable().getSize().x << ' ' << w.get_drawable().getSize().y << std::endl;
 		weapn_icons.push_back(w.get_drawable());
+	}
 }
 
 SetupScreen::~SetupScreen() {
@@ -121,7 +123,7 @@ void SetupScreen::postProcessInput() {
 
 	// Highlight icon.
 	auto hl_icon = [] (sf::Shape* s) -> void {
-		s->setOutlineColor(sf::Color::Red);
+		s->setOutlineColor(sf::Color::Green);
 		s->setOutlineThickness(2.0f);
 	};
 
@@ -144,7 +146,7 @@ void SetupScreen::processKeypress(const sf::Keyboard::Key & key) {
 	{
 		auto num_enem = GAMEDATA->getEnemyList().size();
 		auto num_weap = GAMEDATA->getWeaponList().size();
-		if (current_hlgted_obj > num_enem
+		if (current_hlgted_obj >= num_enem
 			&& current_hlgted_obj < (num_enem + num_weap)) {
 			selected_wpns.push_back(GAMEDATA->getWeaponList()[current_hlgted_obj - num_enem]);
 		}
@@ -158,7 +160,7 @@ void SetupScreen::processKeypress(const sf::Keyboard::Key & key) {
 			break;
 		}
 
-		int to_delete = current_hlgted_obj - num_enem - num_weap;
+		size_t to_delete = current_hlgted_obj - num_enem - num_weap;
 		selected_wpns.erase(selected_wpns.begin() + (to_delete));
 		break;
 	}

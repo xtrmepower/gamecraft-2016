@@ -14,7 +14,7 @@ public:
 	sf::Vector2f getSize() const { return size; }
 	void setSize(sf::Vector2f new_size) { size = new_size; }
 
-	virtual T get_drawable() { return my_sprite; };
+	virtual T& get_drawable() { return my_sprite; };
 
 	void setName(const std::string &name_) { name = name_; }
 	std::string getName() { return name; }
