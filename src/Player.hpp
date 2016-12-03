@@ -16,14 +16,14 @@ public:
 	void endTimeDilation();
 
 	void reset();
-    float getStamina();
+	float getStamina();
 
 private:
 	float speed;
 	float time_scale;
 
 	bool isTimeDilated;
-    float stamina;
+	float stamina;
 };
 
 #endif

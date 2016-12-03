@@ -19,13 +19,14 @@ Weapon::Weapon(int id) {
 	switch (id) {
 	case 0:
 		name = "Bow";
-		texture = ASSETMGR->weapon_texture_0;
+		my_sprite = sf::RectangleShape(sf::Vector2f(50.0f, 50.0f));
+		my_sprite.setTexture(&ASSETMGR->weapon_texture_0);
 		range = 100.0f;
 		damage = 100.0f;
 		weapon_scale = 10.0f;
 		stamina_scale = 10.0f;
 
-        durability = 10;
+		durability = 10;
 
 		damage_modifiers[0] = middle;
 		damage_modifiers[1] = high;
@@ -34,13 +35,13 @@ Weapon::Weapon(int id) {
 		break;
 	case 1:
 		name = "Musket";
-		texture = ASSETMGR->weapon_texture_1;
+		my_sprite.setTexture(&ASSETMGR->weapon_texture_1);
 		range = 50.0f;
 		damage = 200.0f;
 		weapon_scale = 100.0f;
 		stamina_scale = 1.0f;
 
-        durability = 5;
+		durability = 5;
 
 		damage_modifiers[0] = definite;
 		damage_modifiers[1] = high;
@@ -49,13 +50,13 @@ Weapon::Weapon(int id) {
 		break;
 	case 2:
 		name = "Sword";
-		texture = ASSETMGR->weapon_texture_2;
+		my_sprite.setTexture(&ASSETMGR->weapon_texture_2);
 		range = 0.0f;
 		damage = 100.0f;
 		weapon_scale = 1.0f;
 		stamina_scale = 100.0f;
 
-        durability = 20;
+		durability = 20;
 
 		damage_modifiers[0] = none;
 		damage_modifiers[1] = high;
@@ -63,22 +64,6 @@ Weapon::Weapon(int id) {
 
 		break;
 	}
-}
-
-std::string Weapon::getName() {
-	return name;
-}
-
-sf::Texture Weapon::getTexture() {
-	return texture;
-}
-
-float Weapon::getRange() {
-	return range;
-}
-
-float Weapon::getDamage() {
-	return damage;
 }
 
 float Weapon::calculateBossDamage(std::vector<int> enemy_type, float distance) {
@@ -118,12 +103,4 @@ float Weapon::calculateWinningChance(std::vector<int> enemy_type) {
 	winning_chance /= (float)enemy_type.size();
 
 	return winning_chance;
-}
-
-void Weapon::useWeapon() {
-    durability--;
-}
-
-bool Weapon::isUsable() {
-    return durability > 0;
 }

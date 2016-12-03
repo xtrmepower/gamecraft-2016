@@ -10,8 +10,6 @@
 template <typename T>
 class IGameObject {
 public:
-	virtual void draw(std::shared_ptr<sf::RenderWindow> window) = 0;
-
 	sf::Vector2f getPos() const { return pos; }
 	sf::Vector2f getSize() const { return size; }
 	void setSize(sf::Vector2f new_size) { size = new_size; }
@@ -31,6 +29,7 @@ protected:
 template <typename T>
 class IAnimatedGameObject : public IGameObject<T> {
 public:
+	virtual void draw(std::shared_ptr<sf::RenderWindow> window) = 0;
 	virtual void reset() = 0;
 	virtual void update() = 0;
 	const sf::Vector2f getOriginalPos() { return original_pos; }

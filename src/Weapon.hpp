@@ -3,29 +3,29 @@
 
 #include <string>
 #include <SFML/Graphics.hpp>
+#include "GameObject.hpp"
 
-class Weapon {
+class Weapon : public IGameObject<sf::RectangleShape> {
 public:
 	Weapon(int id);
-	std::string getName();
-	sf::Texture getTexture();
-	float getRange();
-	float getDamage();
+	float getRange() { return range; }
+	float getDamage() { return damage; }
 	float calculateBossDamage(std::vector<int> enemy_type, float distance);
 	float calculateWinningChance(std::vector<int> enemy_type);
-    void useWeapon();
-    bool isUsable();
+	void useWeapon() { durability--; }
+	bool isUsable() { return durability > 0; }
+
+	void setTexture(const sf::Texture *t) { my_sprite.setTexture(t); }
+	const sf::Texture* getTexture() { return my_sprite.getTexture(); }
 
 private:
 	int id;
-	std::string name;
-	sf::Texture texture;
 	float range;
 	float damage;
 	float weapon_scale;
 	float stamina_scale;
 	std::map<int, float> damage_modifiers;
-    int durability;
+	int durability;
 };
 
 #endif // WEAPON_HPP
