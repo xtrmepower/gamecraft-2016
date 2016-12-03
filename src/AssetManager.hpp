@@ -35,6 +35,15 @@ public:
 
 		if (!ground_texture_0.loadFromFile("../../data/ground_texture_0.jpg"))
 			throw std::runtime_error("Texture ground_texture_0.jpg not found!");
+
+		if (!bg_texture_0.loadFromFile("../../data/country-platform-tileset.png"))
+			throw std::runtime_error("Texture country-platform-tileset.png not found!");
+
+		if (!bg_texture_1.loadFromFile("../../data/country-platform-forest.png"))
+			throw std::runtime_error("Texture country-platform-forest.png not found!");
+
+		if (!bg_texture_2.loadFromFile("../../data/country-platform-back.png"))
+			throw std::runtime_error("Texture country-platform-back.png not found!");
 	}
 
 	~AssetManager() {}
@@ -55,6 +64,10 @@ public:
     sf::Texture boss_texture_2;
 
 	sf::Texture ground_texture_0;
+
+	sf::Texture bg_texture_0;
+	sf::Texture bg_texture_1;
+	sf::Texture bg_texture_2;
 };
 
 #endif // ASSET_MANAGER_HPP

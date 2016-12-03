@@ -12,6 +12,10 @@ Stage::Stage(std::shared_ptr<sf::RenderWindow> window, int stage_num) {
 	ground_sprite.setPosition(sf::Vector2f(0.0, 100.0f));
 	//ground_sprite.setScale(50.0f, 1.0f);
 
+	bg_sprite_0.setTexture(ASSETMGR->bg_texture_0);
+	bg_sprite_1.setTexture(ASSETMGR->bg_texture_1);
+	bg_sprite_2.setTexture(ASSETMGR->bg_texture_2);
+
 	onEnter();
 }
 
@@ -37,13 +41,26 @@ void Stage::draw() {
 	my_view.setCenter(p.getPos());
 	window->setView(my_view);
 
-	sf::Vector2f ground_pos = sf::Vector2f(-5000.0f, 100.0f);
+	/*sf::Vector2f ground_pos = sf::Vector2f(-5000.0f, 100.0f);
 	float delta_pos = 32.0f;
 	for (int i = 0; i < 1000; i++) {
 		ground_sprite.setPosition(ground_pos);
 		window->draw(ground_sprite);
 		ground_pos.x += delta_pos;
+	}*/
+
+	// ground+tree layer - moves same speed with player
+	sf::Vector2f ground_pos = sf::Vector2f(-5000.0f, 0.0f);
+	float delta_pos = 80.0f;
+	for (int i = 0; i < 1000; i++) {
+		bg_sprite_0.setPosition(ground_pos);
+		window->draw(bg_sprite_0);
+		ground_pos.x += delta_pos;
 	}
+
+	// clouds layer - never moves
+	bg_sprite_2.setPosition(p.getPos());
+	window->draw(bg_sprite_2);
 
 	p.draw(window);
 

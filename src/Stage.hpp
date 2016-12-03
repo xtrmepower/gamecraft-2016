@@ -37,6 +37,10 @@ protected:
 
 	sf::Sprite ground_sprite;
 
+	sf::Sprite bg_sprite_0;
+	sf::Sprite bg_sprite_1;
+	sf::Sprite bg_sprite_2;
+
 private:
 	Stage() {}
 };
