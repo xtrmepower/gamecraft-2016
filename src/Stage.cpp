@@ -84,7 +84,17 @@ void Stage::combatCheck()
 		/*if (p.getPos().x > e->getPos().x) {
 		// remove enemy
 		break;
-		} else */if (calcDistance(e->getPos(), p.getPos()) < combat_range) {
+		} else */
+        
+        sf::Vector2f e_pos = e->getPos();
+        e_pos.x += e->getTexture().getSize().x * 0.5f;
+        e_pos.y += e->getTexture().getSize().y * 0.5f;
+
+        sf::Vector2f p_pos = p.getPos();
+        p_pos.x += p.getSize().x * 0.5f;
+        p_pos.y += p.getSize().y * 0.5f;
+
+        if (calcDistance(e_pos, p_pos) < combat_range + p.getSize().x * 0.5f) {
 			toEnterCombat = true;
 		}
 	}

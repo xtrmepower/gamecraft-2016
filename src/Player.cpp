@@ -13,6 +13,8 @@ Player::Player()
 	my_sprite.setRadius(50.0f);
 	my_sprite.setFillColor(sf::Color(100, 250, 50));
 
+    setSize(sf::Vector2f(my_sprite.getRadius() * 2.0f, my_sprite.getRadius() * 2.0f));
+
     stamina = 100.0f;
 }
 
