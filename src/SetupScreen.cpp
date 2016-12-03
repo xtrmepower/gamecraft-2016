@@ -27,10 +27,26 @@ SetupScreen::SetupScreen(std::shared_ptr<sf::RenderWindow> window_) : View(windo
 	bottom_section = sf::RectangleShape(sf::Vector2f((float)res.x, res.y * 0.2f));
 	bottom_section.setFillColor(sf::Color::Black);
 	bottom_section.setPosition(curr);
+
+	for (auto e : GAMEDATA->getEnemyList())
+		enemy_icons.push_back(e.get_drawable());
+	for (auto w : GAMEDATA->getWeaponList())
+		weapn_icons.push_back(w.get_drawable());
+}
+
+SetupScreen::~SetupScreen() {
+	enemy_icons.clear();
+	weapn_icons.clear();
+	selected_wpns.clear();
 }
 
 const ViewMode SetupScreen::view_loop() {
 	View::standardStateLoop();
+	if (to_return == ViewMode::MISSION_SELECT)
+		GAMEDATA->clearHeldWeapons();
+	else if (to_return == ViewMode::IN_GAME)
+		GAMEDATA->setHeldWeapons(selected_wpns);
+
 	return to_return;
 }
 
@@ -43,24 +59,25 @@ void SetupScreen::draw() {
 	window->draw(bottom_section);
 
 	constexpr float icon_scale = 2.0f;
+	
+	// Draw enemy icons
 	sf::Vector2f pos(10.0f, 10.0f);
-	for (auto e : GAMEDATA->getEnemyList()) {
-		auto sprite = e.get_drawable();
-		sprite.setScale(sf::Vector2f(icon_scale, icon_scale));
-		sprite.setPosition(pos);
-		window->draw(sprite);
-		pos.x += 10.0f + icon_scale * sprite.getSize().x;
+	for (auto e : enemy_icons) {
+		e.setPosition(pos);
+		window->draw(e);
+		pos.x += 10.0f + e.getSize().x;
 	}
 
+	// Draw weapon icons
 	pos = sf::Vector2f(10.0f, res.y * 0.2f + 10.0f);
-	for (auto w : GAMEDATA->getWeaponList()) {
-		auto sprite = w.get_drawable();
-		sprite.setScale(sf::Vector2f(icon_scale, icon_scale));
-		sprite.setPosition(pos);
-		window->draw(sprite);
-		pos.x += 5.0f + icon_scale * sprite.getSize().x;
+	for (auto w : weapn_icons) {
+		w.setScale(sf::Vector2f(icon_scale, icon_scale));
+		w.setPosition(pos);
+		window->draw(w);
+		pos.x += 5.0f + icon_scale * w.getSize().x;
 	}
 
+	// Draw selected weapon icons
 	pos = sf::Vector2f(10.0f, res.y * 0.8f + 10.0f);
 	for (auto w : selected_wpns) {
 		auto sprite = w.get_drawable();
@@ -73,29 +90,87 @@ void SetupScreen::draw() {
 	window->display();
 }
 
-void SetupScreen::update() {
+void SetupScreen::preProcessInput() {
+	// Unhighlight icon.
+	auto unhl_icon = [] (sf::Shape* s) -> void {
+		s->setOutlineColor(sf::Color::White);
+		s->setOutlineThickness(0.0f);
+	};
+
+	auto num_enem = enemy_icons.size();
+	auto num_weap = weapn_icons.size();
+	if (current_hlgted_obj < num_enem) {
+		unhl_icon(&enemy_icons[current_hlgted_obj]);
+	} else if (current_hlgted_obj < num_enem + num_weap) {
+		unhl_icon(&weapn_icons[current_hlgted_obj - num_enem]);
+	} else {
+		unhl_icon(&selected_wpns[current_hlgted_obj - num_enem - num_weap].get_drawable());
+	}
+}
+
+void SetupScreen::postProcessInput() {
+	// Prevent selecting out of possible range.
+	size_t total_num_obj = enemy_icons.size()
+		+ weapn_icons.size()
+		+ selected_wpns.size();
+
+	if (current_hlgted_obj >= total_num_obj)
+		current_hlgted_obj = 0;
+	if (current_hlgted_obj < 0)
+		current_hlgted_obj = (int)total_num_obj - 1;
+
+	// Highlight icon.
+	auto hl_icon = [] (sf::Shape* s) -> void {
+		s->setOutlineColor(sf::Color::Red);
+		s->setOutlineThickness(2.0f);
+	};
+
+	auto num_enem = enemy_icons.size();
+	auto num_weap = weapn_icons.size();
+	if (current_hlgted_obj < num_enem) {
+		hl_icon(&enemy_icons[current_hlgted_obj]);
+	} else if (current_hlgted_obj < num_enem + num_weap) {
+		hl_icon(&weapn_icons[current_hlgted_obj - num_enem]);
+	} else {
+		hl_icon(&selected_wpns[current_hlgted_obj - num_enem - num_weap].get_drawable());
+	}
 }
 
 void SetupScreen::processKeypress(const sf::Keyboard::Key & key) {
+	preProcessInput();
+
 	switch (key) {
 	case sf::Keyboard::Return:
 	{
-		// Chck that highlighted option is a weapon not enemy
-		// Move weapon #$(current_hlted_wpn) from choice box to selected_weapons
-		// Or remove it from selected weapons pool
+		auto num_enem = GAMEDATA->getEnemyList().size();
+		auto num_weap = GAMEDATA->getWeaponList().size();
+		if (current_hlgted_obj > num_enem
+			&& current_hlgted_obj < (num_enem + num_weap)) {
+			selected_wpns.push_back(GAMEDATA->getWeaponList()[current_hlgted_obj - num_enem]);
+		}
+		break;
+	}
+	case sf::Keyboard::BackSpace:
+	{
+		auto num_enem = GAMEDATA->getEnemyList().size();
+		auto num_weap = GAMEDATA->getWeaponList().size();
+		if (current_hlgted_obj < (num_enem + num_weap)) {
+			break;
+		}
+
+		int to_delete = current_hlgted_obj - num_enem - num_weap;
+		selected_wpns.erase(selected_wpns.begin() + (to_delete));
 		break;
 	}
 	case sf::Keyboard::Escape: // Return to mission select
 	{
 		to_return = ViewMode::MISSION_SELECT;
-		GAMEDATA->clearHeldWeapons();
 		exit_state = true;
 		break;
 	}
 	case sf::Keyboard::Space:// GAME START!
 	{
 		to_return = ViewMode::IN_GAME;
-		GAMEDATA->setHeldWeapons(selected_wpns);
 		exit_state = true;
 		break;
 	}
@@ -118,13 +193,6 @@ void SetupScreen::processKeypress(const sf::Keyboard::Key & key) {
 	default: break;
 	}
 
-	size_t total_num_obj = GAMEDATA->getWeaponList().size()
-		+ GAMEDATA->getEnemyList().size()
-		+ selected_wpns.size();
-
-	if (current_hlgted_obj >= total_num_obj)
-		current_hlgted_obj = 0;
-	if (current_hlgted_obj < 0)
-		current_hlgted_obj = (int)total_num_obj - 1;
+	postProcessInput();
 }
 
