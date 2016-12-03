@@ -81,11 +81,6 @@ void Stage::combatCheck()
 	const float combat_range = 100.0f;
 	bool toEnterCombat = false;
 	for (auto e : enemy_list) {
-		/*if (p.getPos().x > e->getPos().x) {
-		// remove enemy
-		break;
-		} else */
-        
         sf::Vector2f e_pos = e->getPos();
         e_pos.x += e->getTexture().getSize().x * 0.5f;
         e_pos.y += e->getTexture().getSize().y * 0.5f;
@@ -94,7 +89,10 @@ void Stage::combatCheck()
         p_pos.x += p.getSize().x * 0.5f;
         p_pos.y += p.getSize().y * 0.5f;
 
-        if (calcDistance(e_pos, p_pos) < combat_range + p.getSize().x * 0.5f) {
+		if (p_pos.x > e_pos.x) {
+			e->setActive(false);
+			break;
+		} else if (calcDistance(e_pos, p_pos) < combat_range + p.getSize().x * 0.5f) {
 			toEnterCombat = true;
 		}
 	}
