@@ -1,7 +1,6 @@
 #include "Stage0.hpp"
 
-Stage0::Stage0(std::shared_ptr<sf::RenderWindow> window_)
-{
+Stage0::Stage0(std::shared_ptr<sf::RenderWindow> window_) {
 	window = window_;
 
 	old_view_center.x = window_->getView().getCenter().x;
@@ -12,8 +11,7 @@ Stage0::Stage0(std::shared_ptr<sf::RenderWindow> window_)
 	std::cout << "e" << enemy_list.size() << std::endl;
 }
 
-void Stage0::draw()
-{
+void Stage0::draw() {
 	my_view.setCenter(p.getPos());
 	window->setView(my_view);
 	p.draw(window);
@@ -23,23 +21,20 @@ void Stage0::draw()
 	}
 }
 
-void Stage0::update()
-{
+void Stage0::update() {
 	p.update();
 
 	enemyUpdate();
 }
 
-void Stage0::reset()
-{
+void Stage0::reset() {
 	deinitEnemyList();
 	my_view.setCenter(old_view_center);
 	window->setView(my_view);
 	p.reset();
 }
 
-void Stage0::initEnemyList()
-{
+void Stage0::initEnemyList() {
 	Enemy* temp;
 	temp = new Enemy(0);
 	temp->setPos(sf::Vector2f(100.0f, 0.0f));
@@ -54,16 +49,14 @@ void Stage0::initEnemyList()
 	enemy_list.push_back(temp);
 }
 
-void Stage0::deinitEnemyList()
-{
+void Stage0::deinitEnemyList() {
 	auto e = std::begin(enemy_list);
 
 	while (e != std::end(enemy_list))
 		e = enemy_list.erase(e);
 }
 
-void Stage0::onEnter()
-{
+void Stage0::onEnter() {
 	float size_x = window->getSize().x;
 	float size_y = window->getSize().y;
 	my_view.setCenter(size_x*0.5f, size_y*0.5f);
@@ -74,15 +67,13 @@ void Stage0::onEnter()
 	initEnemyList();
 }
 
-void Stage0::onExit()
-{
+void Stage0::onExit() {
 	reset();
 
 	deinitEnemyList();
 }
 
-void Stage0::enemyUpdate()
-{
+void Stage0::enemyUpdate() {
 	// check if player is near the next enemy
 
 	// if yes, enter combat
@@ -107,12 +98,10 @@ void Stage0::enemyUpdate()
 	toEnterCombat ? enterCombat() : endCombat();
 }
 
-void Stage0::enterCombat()
-{
+void Stage0::enterCombat() {
 	p.startTimeDilation();
 }
 
-void Stage0::endCombat()
-{
+void Stage0::endCombat() {
 	p.endTimeDilation();
 }
