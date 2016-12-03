@@ -78,10 +78,17 @@ private:
 	how many weapons, what type, et cetera.
 	*/
 	void addLevels() {
+		sf::Vector2f pos;
+		const float delta_dist = 500.0f;		// distance between each enemy
+
 		// LEVEL 0
-		for (int i = 0; i < 5; i++)
-			level_data[0].addEnemy(Enemy(0));
-		level_data[0].addEnemy(Enemy(0, true));
+		pos = sf::Vector2f(0.0f, 0.0f);
+		for (int i = 0; i < 5; i++) {
+			pos.x += delta_dist;
+			level_data[0].addEnemy(Enemy(0, pos));
+		}
+		pos.x += delta_dist;
+		level_data[0].addEnemy(Enemy(0, pos, true));
 
 		level_data[0].addWeapon(Weapon(0));
 		level_data[0].addWeapon(Weapon(1));

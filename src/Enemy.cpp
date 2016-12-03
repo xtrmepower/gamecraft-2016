@@ -5,7 +5,7 @@
 
 extern std::unique_ptr<AssetManager> ASSETMGR;
 
-Enemy::Enemy(int id_, bool is_boss_) : id(id_), is_boss(is_boss_) {
+Enemy::Enemy(int id_, sf::Vector2f pos, bool is_boss_) : id(id_), is_boss(is_boss_) {
 	if (is_boss_) {
 		switch (id_) {
 		case 0:
@@ -42,6 +42,8 @@ Enemy::Enemy(int id_, bool is_boss_) : id(id_), is_boss(is_boss_) {
 	my_sprite.setFillColor(sf::Color(200, 50, 50));
 
 	is_active = true;
+
+	this->setPos(pos);
 }
 
 sf::Texture Enemy::getTexture() {

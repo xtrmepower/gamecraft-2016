@@ -6,7 +6,7 @@
 
 class Enemy : public IAnimatedGameObject<sf::RectangleShape> {
 public:
-	Enemy(int id, bool is_boss = false);
+	Enemy(int id, sf::Vector2f pos, bool is_boss = false);
 	sf::Texture getTexture();
 	std::vector<int> getEnemyType();
 

@@ -22,7 +22,7 @@ void test_ground() {
     float chance;
     int win_count;
 
-    Enemy enemy_1(0);
+	Enemy enemy_1(0, sf::Vector2f(0.0f, 0.0f));
     chance = weapon.calculateWinningChance(enemy_1.getEnemyType());
     std::cout << "Enemy: " << enemy_1.getName() << std::endl;
     std::cout << "Chance: " << chance << std::endl;
@@ -38,7 +38,7 @@ void test_ground() {
     std::cout << std::endl;
     std::cout << "Win: " << win_count << " / 20" << std::endl;
 
-    Enemy enemy_2(1);
+    Enemy enemy_2(1, sf::Vector2f(0.0f, 0.0f));
     chance = weapon.calculateWinningChance(enemy_2.getEnemyType());
     std::cout << "Enemy: " << enemy_2.getName() << std::endl;
     std::cout << "Chance: " << chance << std::endl;
@@ -54,7 +54,7 @@ void test_ground() {
     std::cout << std::endl;
     std::cout << "Win: " << win_count << " / 20" << std::endl;
 
-    Enemy boss(0, true);
+    Enemy boss(0, sf::Vector2f(0.0f, 0.0f), true);
     std::cout << "Boss: " << boss.getName() << std::endl;
 
     float distance;

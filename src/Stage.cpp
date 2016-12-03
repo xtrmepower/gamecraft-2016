@@ -93,10 +93,9 @@ void Stage::combatCheck()
         p_pos.x += p.getSize().x * 0.5f;
         p_pos.y += p.getSize().y * 0.5f;
 
-		if (p_pos.x > e_pos.x) {
+		if (e.isActive() && p_pos.x > e_pos.x) {
 			e.setActive(false);
-			break;
-		} else if (calcDistance(e_pos, p_pos) < combat_range + p.getSize().x * 0.5f) {
+		} else if (e.isActive() && calcDistance(e_pos, p_pos) < combat_range + p.getSize().x * 0.5f) {
 			toEnterCombat = true;
 		}
 	}
