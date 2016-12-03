@@ -16,10 +16,11 @@ Weapon::Weapon(int id) {
 	float high = 0.75f;
 	float definite = 1.0f;
 
+	my_sprite = sf::RectangleShape(sf::Vector2f(100.0f, 100.0f));
+
 	switch (id) {
 	case 0:
 		name = "Bow";
-		my_sprite = sf::RectangleShape(sf::Vector2f(50.0f, 50.0f));
 		my_sprite.setTexture(&ASSETMGR->weapon_texture_0);
 		range = 100.0f;
 		damage = 100.0f;

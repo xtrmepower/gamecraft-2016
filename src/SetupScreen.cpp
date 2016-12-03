@@ -42,36 +42,29 @@ void SetupScreen::draw() {
 	window->draw(middle_section_right);
 	window->draw(bottom_section);
 
-	// Assume all icons are 40x40 in size
-	sf::Vector2f icsize(50.0f, 50.0f);
-	auto icon = [icsize] (const sf::Vector2f &pos) -> sf::RectangleShape {
-		sf::RectangleShape rect(icsize);
-		rect.setPosition(pos);
-		rect.setFillColor(sf::Color::Red);
-		rect.setOutlineColor(sf::Color::White);
-		rect.setOutlineThickness(1.0f);
-		return rect;
-	};
-
 	sf::Vector2f pos(10.0f, 10.0f);
 	for (auto e : GAMEDATA->getEnemyList()) {
-		window->draw(icon(pos));
+		auto sprite = e.get_drawable();
+		sprite.setPosition(pos);
+		window->draw(sprite);
 		// Then, advance the position by icon width + gap
-		pos.x += 5.0f + icsize.x;
+		pos.x += 5.0f + sprite.getScale().x;
 	}
 
 	pos = sf::Vector2f(10.0f, res.y * 0.2f + 10.0f);
 	for (auto w : GAMEDATA->getWeaponList()) {
-		window->draw(icon(pos));
-		pos.x += 5.0f + icsize.x;
+		auto sprite = w.get_drawable();
+		sprite.setPosition(pos);
+		window->draw(sprite);
+		pos.x += 5.0f + sprite.getSize().x;
 	}
 
-	pos = sf::Vector2f(10.0f, res.y * 0.8f + 10.0f);
+/*	pos = sf::Vector2f(10.0f, res.y * 0.8f + 10.0f);
 	for (auto w : selected_wpns) {
 		window->draw(icon(pos));
 		// Then, advance the position by icon width + gap
 		pos.x += 5.0f + icsize.x;
-	}
+	}*/
 
 	window->display();
 }

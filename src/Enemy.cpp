@@ -38,7 +38,7 @@ Enemy::Enemy(int id_, sf::Vector2f pos, bool is_boss_) : id(id_), is_boss(is_bos
 		}
 	}
 
-	my_sprite.setSize(sf::Vector2f(5.0f, 100.0f));
+	my_sprite.setSize(sf::Vector2f(50.0f, 50.0f));
 	my_sprite.setFillColor(sf::Color(200, 50, 50));
 
 	is_active = true;
