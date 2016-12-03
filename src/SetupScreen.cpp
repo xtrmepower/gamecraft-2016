@@ -3,7 +3,7 @@
 extern std::unique_ptr<GameData> GAMEDATA;
 
 SetupScreen::SetupScreen(std::shared_ptr<sf::RenderWindow> window_) : View(window_) {
-	current_hlgted_wpn = 0;
+	current_hlgted_obj = 0;
 
 	sf::Vector2f curr(0.0f, 0.0f);
 	// Top section. Size: screen width x 0.2 * screen height
@@ -42,36 +42,50 @@ void SetupScreen::draw() {
 	window->draw(middle_section_right);
 	window->draw(bottom_section);
 
+	// Assume all icons are 40x40 in size
+	sf::Vector2f icsize(50.0f, 50.0f);
+	auto icon = [icsize] (const sf::Vector2f &pos) -> sf::RectangleShape {
+		sf::RectangleShape rect(icsize);
+		rect.setPosition(pos);
+		rect.setFillColor(sf::Color::Red);
+		rect.setOutlineColor(sf::Color::White);
+		rect.setOutlineThickness(1.0f);
+		return rect;
+	};
+
 	sf::Vector2f pos(10.0f, 10.0f);
 	for (auto e : GAMEDATA->getEnemyList()) {
-		// icon = e.get_icon();
-		// icon.setPosition(pos);
-		// window->draw(icon);
+		window->draw(icon(pos));
 		// Then, advance the position by icon width + gap
-		pos.x += 5.0f;
+		pos.x += 5.0f + icsize.x;
+	}
+
+	pos = sf::Vector2f(10.0f, res.y * 0.2f + 10.0f);
+	for (auto w : GAMEDATA->getWeaponList()) {
+		window->draw(icon(pos));
+		pos.x += 5.0f + icsize.x;
 	}
 
 	pos = sf::Vector2f(10.0f, res.y * 0.8f + 10.0f);
 	for (auto w : selected_wpns) {
-		// icon = w.get_icon();
-		// icon.setPosition(pos);
-		// window->draw(icon);
+		window->draw(icon(pos));
 		// Then, advance the position by icon width + gap
-		pos.x += 5.0f;
+		pos.x += 5.0f + icsize.x;
 	}
 
 	window->display();
 }
 
 void SetupScreen::update() {
-	
 }
 
 void SetupScreen::processKeypress(const sf::Keyboard::Key & key) {
 	switch (key) {
 	case sf::Keyboard::Return:
 	{
+		// Chck that highlighted option is a weapon not enemy
 		// Move weapon #$(current_hlted_wpn) from choice box to selected_weapons
+		// Or remove it from selected weapons pool
 		break;
 	}
 	case sf::Keyboard::Escape: // Return to mission select
@@ -93,7 +107,7 @@ void SetupScreen::processKeypress(const sf::Keyboard::Key & key) {
 	case sf::Keyboard::A:
 	case sf::Keyboard::W:
 	{
-		--current_hlgted_wpn;
+		--current_hlgted_obj;
 		break;
 	}
 	case sf::Keyboard::Down:
@@ -101,15 +115,19 @@ void SetupScreen::processKeypress(const sf::Keyboard::Key & key) {
 	case sf::Keyboard::D:
 	case sf::Keyboard::S:
 	{
-		++current_hlgted_wpn;
+		++current_hlgted_obj;
 		break;
 	}
 	default: break;
 	}
 
-	if (current_hlgted_wpn >= GAMEDATA->getWeaponList().size())
-		current_hlgted_wpn = 0;
-	if (current_hlgted_wpn < 0)
-		current_hlgted_wpn = (int)GAMEDATA->getWeaponList().size() - 1;
+	size_t total_num_obj = GAMEDATA->getWeaponList().size()
+		+ GAMEDATA->getEnemyList().size()
+		+ selected_wpns.size();
+
+	if (current_hlgted_obj >= total_num_obj)
+		current_hlgted_obj = 0;
+	if (current_hlgted_obj < 0)
+		current_hlgted_obj = (int)total_num_obj - 1;
 }
 

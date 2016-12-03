@@ -21,7 +21,7 @@ private:
 	ViewMode to_return;
 	std::vector<Enemy> enemies;
 	std::vector<Weapon> selected_wpns;
-	int current_hlgted_wpn;
+	int current_hlgted_obj;
 };
 
 #endif // SETUPSCREEN_HPP
