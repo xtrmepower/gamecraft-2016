@@ -21,7 +21,6 @@ public:
 
 private:
 	int id;
-	sf::Texture texture;
 
 	// An enemy can be several types at the same time.
 	std::vector<int> enemy_type;

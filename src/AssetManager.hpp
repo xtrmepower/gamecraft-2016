@@ -25,13 +25,13 @@ public:
             throw std::runtime_error("Texture W_Sword001.png not found!");
 
         if (!enemy_texture_1.loadFromFile("../../data/Icon.1_27.png"))
-            throw std::runtime_error("Texture W_Sword001.png not found!");
+            throw std::runtime_error("Texture Icon.1_27.png not found!");
 
         if (!enemy_texture_2.loadFromFile("../../data/Icon.1_37.png"))
-            throw std::runtime_error("Texture W_Sword001.png not found!");
+            throw std::runtime_error("Texture Icon.1_37.png not found!");
 
         if (!boss_texture_0.loadFromFile("../../data/Icon.2_30.png"))
-            throw std::runtime_error("Texture W_Sword001.png not found!");
+            throw std::runtime_error("Texture Icon.2_30.png not found!");
 	}
 
 	~AssetManager() {}

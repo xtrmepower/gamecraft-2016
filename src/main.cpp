@@ -87,7 +87,7 @@ int main(int argc, char* argv[]) {
 
     bool cmd_mode = true;
     if (cmd_mode) {
-        test_ground();
+        // test_ground();
     }
 
 	int width = 1280, height = 720;

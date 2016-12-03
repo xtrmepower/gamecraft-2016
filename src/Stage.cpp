@@ -74,8 +74,8 @@ void Stage::combatCheck() {
 	bool toEnterCombat = false;
 	for (auto e : enemy_list) {
 		sf::Vector2f e_pos = e.getPos();
-		e_pos.x += e.getTexture()->getSize().x * 0.5f;
-		e_pos.y += e.getTexture()->getSize().y * 0.5f;
+		e_pos.x += e.getSize().x * 0.5f;
+		e_pos.y += e.getSize().y * 0.5f;
 
 		sf::Vector2f p_pos = p.getPos();
 		p_pos.x += p.getSize().x * 0.5f;
