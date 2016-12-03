@@ -16,6 +16,7 @@ public:
 	virtual void update();
 	virtual void reset();
 
+	void loadEnemyList(std::vector<Enemy> e_list);
 	void addEnemy(int type, sf::Vector2f pos);
 	void setPlayerStartPos(sf::Vector2f pos);
 
@@ -28,14 +29,11 @@ protected:
 	sf::Vector2f old_view_center;
 	std::shared_ptr<sf::RenderWindow> window;
 
-	std::vector<Enemy*> enemy_list;
+	std::vector<Enemy> enemy_list;
 
 	virtual void enterCombat();
 	virtual void endCombat();
 	virtual void combatCheck();
-
-	void initEnemyList();
-	void deinitEnemyList();
 
 private:
 	Stage() {}

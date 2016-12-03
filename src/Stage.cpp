@@ -35,7 +35,7 @@ void Stage::draw()
 	p.draw(window);
 
 	for (auto e : enemy_list) {
-		e->draw(window);
+		e.draw(window);
 	}
 }
 
@@ -48,17 +48,21 @@ void Stage::update()
 
 void Stage::reset()
 {
-	deinitEnemyList();
 	my_view.setCenter(old_view_center);
 	window->setView(my_view);
 	p.reset();
 }
 
+void Stage::loadEnemyList(std::vector<Enemy> e_list)
+{
+	this->enemy_list = e_list;
+}
+
 void Stage::addEnemy(int type, sf::Vector2f pos)
 {
-	Enemy* temp = new Enemy(type);
+	/*Enemy* temp = new Enemy(type);
 	temp->setPos(pos);
-	enemy_list.push_back(temp);
+	enemy_list.push_back(temp);*/
 }
 
 void Stage::setPlayerStartPos(sf::Vector2f pos)
@@ -81,16 +85,16 @@ void Stage::combatCheck()
 	const float combat_range = 100.0f;
 	bool toEnterCombat = false;
 	for (auto e : enemy_list) {
-        sf::Vector2f e_pos = e->getPos();
-        e_pos.x += e->getTexture().getSize().x * 0.5f;
-        e_pos.y += e->getTexture().getSize().y * 0.5f;
+        sf::Vector2f e_pos = e.getPos();
+        e_pos.x += e.getTexture().getSize().x * 0.5f;
+        e_pos.y += e.getTexture().getSize().y * 0.5f;
 
         sf::Vector2f p_pos = p.getPos();
         p_pos.x += p.getSize().x * 0.5f;
         p_pos.y += p.getSize().y * 0.5f;
 
 		if (p_pos.x > e_pos.x) {
-			e->setActive(false);
+			e.setActive(false);
 			break;
 		} else if (calcDistance(e_pos, p_pos) < combat_range + p.getSize().x * 0.5f) {
 			toEnterCombat = true;
@@ -98,17 +102,4 @@ void Stage::combatCheck()
 	}
 
 	toEnterCombat ? enterCombat() : endCombat();
-}
-
-void Stage::initEnemyList()
-{
-
-}
-
-void Stage::deinitEnemyList()
-{
-	auto e = std::begin(enemy_list);
-
-	while (e != std::end(enemy_list))
-		e = enemy_list.erase(e);
 }
