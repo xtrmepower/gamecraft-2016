@@ -60,7 +60,7 @@ void Stage::draw() {
 
 	// clouds layer - never moves
 	bg_sprite_2.setPosition(p.getPos());
-	window->draw(bg_sprite_2);
+	//window->draw(bg_sprite_2);
 
 	p.draw(window);
 
