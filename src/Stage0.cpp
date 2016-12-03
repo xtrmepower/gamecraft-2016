@@ -42,15 +42,15 @@ void Stage0::initEnemyList()
 {
 	Enemy* temp;
 	temp = new Enemy(0);
-	temp->setPos(sf::Vector2f(100.0f, 0.0f));
+	temp->setPos(sf::Vector2f(400.0f, 0.0f));
 	enemy_list.push_back(temp);
 
 	temp = new Enemy(1);
-	temp->setPos(sf::Vector2f(150.0f, 0.0f));
+	temp->setPos(sf::Vector2f(800.0f, 0.0f));
 	enemy_list.push_back(temp);
 
 	temp = new Enemy(2);
-	temp->setPos(sf::Vector2f(200.0f, 0.0f));
+	temp->setPos(sf::Vector2f(1200.0f, 0.0f));
 	enemy_list.push_back(temp);
 }
 
@@ -94,13 +94,23 @@ void Stage0::enemyUpdate()
 	const float combat_range = 100.0f;
 	bool toEnterCombat = false;
 	for (auto e : enemy_list) {
-		std::cout << "dist=" << calcDistance(e->getPos(), p.getPos()) << std::endl;
+		// std::cout << "dist=" << calcDistance(e->getPos(), p.getPos()) << std::endl;
 		/*if (p.getPos().x > e->getPos().x) {
 			// remove enemy
 			break;
-		} else */if (calcDistance(e->getPos(), p.getPos()) < combat_range) {
+		} else */
+
+        sf::Vector2f e_pos = e->getPos();
+        e_pos.x += e->getTexture().getSize().x * 0.5f;
+        e_pos.y += e->getTexture().getSize().y * 0.5f;
+
+        sf::Vector2f p_pos = p.getPos();
+        p_pos.x += p.getSize().x * 0.5f;
+        p_pos.y += p.getSize().y * 0.5f;
+        
+        if (calcDistance(e_pos, p_pos) < combat_range + p.getSize().x * 0.5f) {
 			toEnterCombat = true;
-			std::cout << "hello\n";
+			// std::cout << "hello\n";
 		}
 	}
 
