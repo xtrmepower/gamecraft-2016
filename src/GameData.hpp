@@ -79,7 +79,7 @@ private:
 	*/
 	void addLevels() {
 		sf::Vector2f pos;
-		const float delta_dist = 75.0f;		// distance between each enemy
+		const float delta_dist = 500.0f;		// distance between each enemy
 
 		// LEVEL 0
 		pos = sf::Vector2f(0.0f, 0.0f);

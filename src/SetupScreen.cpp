@@ -42,29 +42,33 @@ void SetupScreen::draw() {
 	window->draw(middle_section_right);
 	window->draw(bottom_section);
 
+	constexpr float icon_scale = 2.0f;
 	sf::Vector2f pos(10.0f, 10.0f);
 	for (auto e : GAMEDATA->getEnemyList()) {
 		auto sprite = e.get_drawable();
+		sprite.setScale(sf::Vector2f(icon_scale, icon_scale));
 		sprite.setPosition(pos);
 		window->draw(sprite);
-		// Then, advance the position by icon width + gap
-		pos.x += 5.0f + sprite.getScale().x;
+		pos.x += 10.0f + icon_scale * sprite.getSize().x;
 	}
 
 	pos = sf::Vector2f(10.0f, res.y * 0.2f + 10.0f);
 	for (auto w : GAMEDATA->getWeaponList()) {
 		auto sprite = w.get_drawable();
+		sprite.setScale(sf::Vector2f(icon_scale, icon_scale));
 		sprite.setPosition(pos);
 		window->draw(sprite);
-		pos.x += 5.0f + sprite.getSize().x;
+		pos.x += 5.0f + icon_scale * sprite.getSize().x;
 	}
 
-/*	pos = sf::Vector2f(10.0f, res.y * 0.8f + 10.0f);
+	pos = sf::Vector2f(10.0f, res.y * 0.8f + 10.0f);
 	for (auto w : selected_wpns) {
-		window->draw(icon(pos));
-		// Then, advance the position by icon width + gap
-		pos.x += 5.0f + icsize.x;
-	}*/
+		auto sprite = w.get_drawable();
+		sprite.setScale(sf::Vector2f(icon_scale, icon_scale));
+		sprite.setPosition(pos);
+		window->draw(sprite);
+		pos.x += 5.0f + icon_scale * sprite.getSize().x;
+	}
 
 	window->display();
 }
