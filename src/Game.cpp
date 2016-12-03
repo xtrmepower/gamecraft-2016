@@ -41,7 +41,7 @@ void Game::processKeypress(const sf::Keyboard::Key & key) {
 	case sf::Keyboard::Escape: exit_state = true; break;
     case sf::Keyboard::Right:
         selected_weapon = stage_list[selected_stage].getSelectedWeapon() + 1;
-        if (selected_weapon > 2) {
+        if (selected_weapon > GAMEDATA->getHeldWeapons().size()) {
             selected_weapon = 0;
         }
         stage_list[selected_stage].setSelectedWeapon(selected_weapon);
@@ -61,7 +61,7 @@ void Game::processKeypress(const sf::Keyboard::Key & key) {
             std::cout << "Weapon Confirmed? " << stage_list[selected_stage].weaponSelected() << std::endl;
 
             enemy = stage_list[selected_stage].getEngagedEnemy();
-            weapon = Weapon(stage_list[selected_stage].getSelectedWeapon());
+            weapon = GAMEDATA->getHeldWeapons()[(stage_list[selected_stage].getSelectedWeapon())];
             chance = weapon.calculateWinningChance(enemy.getEnemyType());
             std::cout << "Enemy: " << enemy.getName() << std::endl;
             std::cout << "Chance: " << chance << std::endl;
