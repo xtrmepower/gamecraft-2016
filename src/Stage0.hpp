@@ -3,6 +3,7 @@
 
 #include "Player.hpp"
 #include "Enemy.hpp"
+#include "util.hpp"
 #include <iostream> 
 
 class Stage0 {
@@ -32,8 +33,6 @@ private:
 
 	void initEnemyList();
 	void deinitEnemyList();
-
-	float calcDistance(sf::Vector2f pos1, sf::Vector2f pos2);
 };
 
 #endif
