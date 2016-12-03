@@ -54,22 +54,26 @@ void Game::processKeypress(const sf::Keyboard::Key & key) {
         stage_list[selected_stage].setSelectedWeapon(selected_weapon);
         break;
     case sf::Keyboard::Space:
-        if (!stage_list[selected_stage].isBattlePhase() ||
-            stage_list[selected_stage].weaponSelected()) break;
-        stage_list[selected_stage].confirmSelectedWeapon();
-        std::cout << "Stage " << selected_stage << std::endl;
-        std::cout << "Weapon Confirmed? " << stage_list[selected_stage].weaponSelected() << std::endl;
+        if (stage_list[selected_stage].isBattlePhase() &&
+            !stage_list[selected_stage].weaponSelected()) {
+            stage_list[selected_stage].confirmSelectedWeapon();
+            std::cout << "Stage " << selected_stage << std::endl;
+            std::cout << "Weapon Confirmed? " << stage_list[selected_stage].weaponSelected() << std::endl;
 
-        enemy = stage_list[selected_stage].getEngagedEnemy();
-        weapon = Weapon(stage_list[selected_stage].getSelectedWeapon());
-        chance = weapon.calculateWinningChance(enemy.getEnemyType());
-        std::cout << "Enemy: " << enemy.getName() << std::endl;
-        std::cout << "Chance: " << chance << std::endl;
-        if (getChanceOutcome(chance)) {
-            std::cout << "W" << std::endl;
+            enemy = stage_list[selected_stage].getEngagedEnemy();
+            weapon = Weapon(stage_list[selected_stage].getSelectedWeapon());
+            chance = weapon.calculateWinningChance(enemy.getEnemyType());
+            std::cout << "Enemy: " << enemy.getName() << std::endl;
+            std::cout << "Chance: " << chance << std::endl;
+            if (getChanceOutcome(chance)) {
+                std::cout << "W" << std::endl;
+            } else {
+                std::cout << "L" << std::endl;
+            }
         } else {
-            std::cout << "L" << std::endl;
+
         }
+        
         break;
 
 	default: break; // Do nothing
