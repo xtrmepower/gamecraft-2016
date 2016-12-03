@@ -26,6 +26,8 @@ Enemy::Enemy(int id) {
 
 	my_sprite.setSize(sf::Vector2f(5.0f, 100.0f));
 	my_sprite.setFillColor(sf::Color(200, 50, 50));
+
+	is_active = true;
 }
 
 std::string Enemy::getName() {
@@ -45,13 +47,25 @@ void Enemy::update()
 
 }
 
-void Enemy::draw(std::shared_ptr<sf::RenderWindow> window)
-{
-	my_sprite.setPosition(pos);
-	window->draw(my_sprite);
+void Enemy::draw(std::shared_ptr<sf::RenderWindow> window) {
+	if (is_active) {
+		my_sprite.setPosition(pos);
+		window->draw(my_sprite);
+	}
 }
 
-void Enemy::reset()
-{
+void Enemy::reset() {
+	is_active = true;
+}
 
+bool Enemy::isBoss() {
+	return is_boss;
+}
+
+bool Enemy::isActive() {
+	return is_active;
+}
+
+void Enemy::setActive(bool is_active) {
+	this->is_active = is_active;
 }

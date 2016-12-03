@@ -81,10 +81,10 @@ void Stage::combatCheck()
 	const float combat_range = 100.0f;
 	bool toEnterCombat = false;
 	for (auto e : enemy_list) {
-		/*if (p.getPos().x > e->getPos().x) {
-		// remove enemy
-		break;
-		} else */if (calcDistance(e->getPos(), p.getPos()) < combat_range) {
+		if (p.getPos().x > e->getPos().x) {
+			e->setActive(false);
+			break;
+		} else if (e->isActive() && calcDistance(e->getPos(), p.getPos()) < combat_range) {
 			toEnterCombat = true;
 		}
 	}
