@@ -1,5 +1,6 @@
 #include "SetupScreen.hpp"
 
+extern std::unique_ptr<AssetManager> ASSETMGR;
 extern std::unique_ptr<GameData> GAMEDATA;
 
 SetupScreen::SetupScreen(std::shared_ptr<sf::RenderWindow> window_) : View(window_) {
@@ -89,6 +90,39 @@ void SetupScreen::draw() {
 		pos.x += 5.0f + icon_scale * sprite.getSize().x;
 	}
 
+	auto drawtxt = [] (const std::string& str, const sf::Vector2f& pos) -> sf::Text {
+		sf::Text txt = sf::Text(str, ASSETMGR->main_menu_font, 40U);
+		txt.setPosition(pos);
+		txt.setFillColor(sf::Color::Black);
+		return txt;
+	};
+
+	auto num_enem = enemy_icons.size();
+	auto num_weap = weapn_icons.size();
+
+	// Starting position.
+	constexpr float gap = 10.0f;
+	pos = sf::Vector2f(res.x / 2.0f + gap, res.y * 0.2f + gap);
+	// Updates the middle section right side.
+	// 1. What are we highlighting?
+	if (current_hlgted_obj < num_enem) {
+		auto e = GAMEDATA->getEnemyList()[current_hlgted_obj];
+		auto ed = e.get_drawable();
+		ed.setPosition(pos);
+		window->draw(ed);
+
+		pos.x += ed.getSize().x + gap * 2.0f;
+		window->draw(drawtxt(e.getName(), pos));
+	} else if (current_hlgted_obj < num_enem + num_weap) {
+		auto w = GAMEDATA->getWeaponList()[current_hlgted_obj - num_enem];
+		auto wd = w.get_drawable();
+		wd.setPosition(pos);
+		window->draw(wd);
+
+		pos.x += wd.getSize().x + gap * 2.0f;
+		window->draw(drawtxt(w.getName(), pos));
+	}
+
 	window->display();
 }
 
@@ -172,8 +206,11 @@ void SetupScreen::processKeypress(const sf::Keyboard::Key & key) {
 	}
 	case sf::Keyboard::Space:// GAME START!
 	{
-		to_return = ViewMode::IN_GAME;
-		exit_state = true;
+		// Don't start game if no weapons selected.
+		if (selected_wpns.size() == 0) {
+			to_return = ViewMode::IN_GAME;
+			exit_state = true;
+		}
 		break;
 	}
 	case sf::Keyboard::Up:
@@ -197,4 +234,3 @@ void SetupScreen::processKeypress(const sf::Keyboard::Key & key) {
 
 	postProcessInput();
 }
-

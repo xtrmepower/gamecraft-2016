@@ -13,7 +13,6 @@ public:
 
 private:
 	void draw() override;
-	void update() override {}
 	void preProcessInput();
 	void postProcessInput();
 
