@@ -32,8 +32,48 @@ void Game::update() {
 }
 
 void Game::processKeypress(const sf::Keyboard::Key & key) {
+    int selected_weapon = 0;
+    float chance = 0.0f;
+    Enemy enemy;
+    Weapon weapon;
+
 	switch (key) {
 	case sf::Keyboard::Escape: exit_state = true; break;
+    case sf::Keyboard::Right:
+        selected_weapon = stage_list[selected_stage].getSelectedWeapon() + 1;
+        if (selected_weapon > GAMEDATA->getHeldWeapons().size()) {
+            selected_weapon = 0;
+        }
+        stage_list[selected_stage].setSelectedWeapon(selected_weapon);
+        break;
+    case sf::Keyboard::Left:
+        selected_weapon = stage_list[selected_stage].getSelectedWeapon() - 1;
+        if (selected_weapon < 0) {
+            selected_weapon = 2;
+        }
+        stage_list[selected_stage].setSelectedWeapon(selected_weapon);
+        break;
+    case sf::Keyboard::Space:
+        if (stage_list[selected_stage].isBattlePhase() &&
+            !stage_list[selected_stage].weaponSelected()) {
+            stage_list[selected_stage].confirmSelectedWeapon();
+
+            enemy = stage_list[selected_stage].getEngagedEnemy();
+            weapon = GAMEDATA->getHeldWeapons()[(stage_list[selected_stage].getSelectedWeapon())];
+            chance = weapon.calculateWinningChance(enemy.getEnemyType());
+            std::cout << "Enemy: " << enemy.getName() << std::endl;
+            std::cout << "Chance: " << chance << std::endl;
+            if (getChanceOutcome(chance)) {
+                std::cout << "W" << std::endl;
+            } else {
+                std::cout << "L" << std::endl;
+            }
+        } else {
+
+        }
+        
+        break;
+
 	default: break; // Do nothing
 	}
 }
