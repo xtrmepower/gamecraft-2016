@@ -4,13 +4,13 @@
 #include <SFML\Graphics.hpp>
 #include "GameObject.hpp"
 
-class Player : public GameObject {
+class Player : public IAnimatedGameObject<sf::CircleShape> {
 public:
 	Player();
 	~Player();
 
-	void update();
-	void draw(std::shared_ptr<sf::RenderWindow> window);
+	void update() override;
+	void draw(std::shared_ptr<sf::RenderWindow> window) override;
 
 	void startTimeDilation();
 	void endTimeDilation();
@@ -21,7 +21,6 @@ public:
 private:
 	float speed;
 	float time_scale;
-	sf::CircleShape my_sprite;
 
 	bool isTimeDilated;
     float stamina;

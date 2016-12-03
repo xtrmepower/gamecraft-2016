@@ -44,10 +44,6 @@ Enemy::Enemy(int id_, bool is_boss_) : id(id_), is_boss(is_boss_) {
 	is_active = true;
 }
 
-std::string Enemy::getName() {
-	return name;
-}
-
 sf::Texture Enemy::getTexture() {
 	return texture;
 }
