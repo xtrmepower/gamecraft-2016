@@ -32,6 +32,9 @@ public:
 
         if (!boss_texture_0.loadFromFile("../../data/Icon.2_30.png"))
             throw std::runtime_error("Texture Icon.2_30.png not found!");
+
+		if (!ground_texture_0.loadFromFile("../../data/ground_texture_0.jpg"))
+			throw std::runtime_error("Texture ground_texture_0.jpg not found!");
 	}
 
 	~AssetManager() {}
@@ -50,6 +53,8 @@ public:
     sf::Texture boss_texture_0;
     sf::Texture boss_texture_1;
     sf::Texture boss_texture_2;
+
+	sf::Texture ground_texture_0;
 };
 
 #endif // ASSET_MANAGER_HPP

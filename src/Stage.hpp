@@ -35,6 +35,8 @@ protected:
 	virtual void endCombat();
 	virtual void combatCheck();
 
+	sf::Sprite ground_sprite;
+
 private:
 	Stage() {}
 };

@@ -1,8 +1,16 @@
 #include "Stage.hpp"
+#include "AssetManager.hpp"
+
+extern std::unique_ptr<AssetManager> ASSETMGR;
 
 Stage::Stage(std::shared_ptr<sf::RenderWindow> window, int stage_num) {
 	this->window = window;
 	this->stage_num = stage_num;
+
+	ASSETMGR->ground_texture_0.setRepeated(true);
+	ground_sprite.setTexture(ASSETMGR->ground_texture_0);
+	ground_sprite.setPosition(sf::Vector2f(0.0, 100.0f));
+	//ground_sprite.setScale(50.0f, 1.0f);
 
 	onEnter();
 }
@@ -28,6 +36,15 @@ void Stage::onExit() {
 void Stage::draw() {
 	my_view.setCenter(p.getPos());
 	window->setView(my_view);
+
+	sf::Vector2f ground_pos = sf::Vector2f(-5000.0f, 100.0f);
+	float delta_pos = 32.0f;
+	for (int i = 0; i < 1000; i++) {
+		ground_sprite.setPosition(ground_pos);
+		window->draw(ground_sprite);
+		ground_pos.x += delta_pos;
+	}
+
 	p.draw(window);
 
 	for (auto e : enemy_list) {
